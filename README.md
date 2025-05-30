@@ -1,8 +1,11 @@
-# Portfolio Blog Starter
+# Two Against Nature - Official Website
 
-This is a porfolio site template complete with a blog. Includes:
+This is the official website for Two Against Nature, a young americana duo from Sonoma County, CA. The site includes:
 
-- MDX and Markdown support
+- Band information and story
+- Upcoming shows calendar
+- Music player with original tracks
+- Modern, responsive design
 - Optimized for SEO (sitemap, robots, JSON-LD schema)
 - RSS Feed
 - Dynamic OG images
@@ -11,32 +14,87 @@ This is a porfolio site template complete with a blog. Includes:
 - Vercel Speed Insights / Web Analytics
 - Geist font
 
+## Features
+
+### About Page
+Learn about the band's story, musical style, and Sonoma County roots.
+
+### Shows Calendar
+View upcoming concerts and events with venue details, dates, and ticket information.
+
+### Music Player
+Listen to original tracks with a custom-built audio player featuring:
+- Play/pause controls
+- Progress tracking
+- Time display
+- Track information
+
 ## Demo
 
-https://portfolio-blog-starter.vercel.app
+Visit the live site: [Two Against Nature](https://your-vercel-url.vercel.app)
 
-## How to Use
+## Development
 
-You can choose from one of the following two methods to use this repository:
+### Prerequisites
+- Node.js 18+ 
+- npm or pnpm
 
-### One-Click Deploy
+### Installation
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/examples/tree/main/solutions/blog&project-name=blog&repository-name=blog)
-
-### Clone and Deploy
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [pnpm](https://pnpm.io/installation) to bootstrap the example:
-
+Clone the repository:
 ```bash
-pnpm create next-app --example https://github.com/vercel/examples/tree/main/solutions/blog blog
+git clone https://github.com/nathanjeichert/my-site.git
+cd my-site
 ```
 
-Then, run Next.js in development mode:
-
+Install dependencies:
 ```bash
+npm install
+# or
+pnpm install
+```
+
+Run the development server:
+```bash
+npm run dev
+# or
 pnpm dev
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/templates) ([Documentation](https://nextjs.org/docs/app/building-your-application/deploying)).
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+### Adding Music
+
+To add new tracks:
+1. Place MP3 files in the `public/music/` directory
+2. Update the `tracks` array in `app/music/page.tsx`
+3. Include track metadata (title, duration, description)
+
+### Updating Shows
+
+To add or modify upcoming shows:
+1. Edit the `upcomingShows` array in `app/shows/page.tsx`
+2. Include venue, date, time, location, and description
+
+## Deployment
+
+Deploy to Vercel:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/nathanjeichert/my-site)
+
+Or deploy manually:
+```bash
+npm run build
+```
+
+## Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Styling**: Tailwind CSS v4
+- **Typography**: Geist font family
+- **Analytics**: Vercel Analytics & Speed Insights
+- **Deployment**: Vercel
+
+## License
+
+© 2024 Two Against Nature. All rights reserved.

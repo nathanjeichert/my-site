@@ -11,15 +11,15 @@ import { baseUrl } from './sitemap'
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'Next.js Portfolio Starter',
-    template: '%s | Next.js Portfolio Starter',
+    default: 'Two Against Nature',
+    template: '%s | Two Against Nature',
   },
-  description: 'This is my portfolio.',
+  description: 'Two Against Nature - A young americana duo from Sonoma County, CA',
   openGraph: {
-    title: 'My Portfolio',
-    description: 'This is my portfolio.',
+    title: 'Two Against Nature',
+    description: 'Two Against Nature - A young americana duo from Sonoma County, CA',
     url: baseUrl,
-    siteName: 'My Portfolio',
+    siteName: 'Two Against Nature',
     locale: 'en_US',
     type: 'website',
   },
