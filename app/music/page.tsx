@@ -5,35 +5,19 @@ export const metadata = {
   description: 'Listen to Two Against Nature\'s latest tracks and releases.',
 }
 
-// Sample tracks - in a real app, these would come from a CMS or database
+// Our actual tracks
 const tracks = [
   {
     id: 1,
-    title: 'Sonoma Sunrise',
-    duration: '3:42',
-    src: '/music/sonoma-sunrise.mp3',
-    description: 'A gentle morning ballad inspired by the rolling hills of wine country.'
+    title: 'Long May You Run',
+    duration: '4:12',
+    src: '/music/Long May You Run.mp3'
   },
   {
     id: 2,
-    title: 'Highway 101',
-    duration: '4:15',
-    src: '/music/highway-101.mp3',
-    description: 'An upbeat road song about journeys and destinations along California\'s coast.'
-  },
-  {
-    id: 3,
-    title: 'Two Hearts, One Song',
-    duration: '3:28',
-    src: '/music/two-hearts-one-song.mp3',
-    description: 'Our signature duet about harmony in music and life.'
-  },
-  {
-    id: 4,
-    title: 'Golden State of Mind',
-    duration: '4:03',
-    src: '/music/golden-state-of-mind.mp3',
-    description: 'A reflective piece about finding home in the Golden State.'
+    title: 'Yula Valley',
+    duration: '3:48',
+    src: '/music/Yula valley.mp3'
   }
 ]
 
@@ -66,9 +50,9 @@ export default function MusicPage() {
         <div className="bg-neutral-50 dark:bg-neutral-900 p-6 rounded-lg">
           <h2 className="text-xl font-semibold mb-4">Latest Release</h2>
           <p className="mb-4">
-            Our newest single "Sonoma Sunrise" captures the essence of early 
-            mornings in wine country, with gentle acoustic melodies and 
-            harmonious vocals that paint a picture of California's natural beauty.
+            Our newest single "Yula Valley" is an evocative piece inspired by 
+            serene landscapes, featuring thoughtful melodies and harmonious 
+            vocals that transport listeners to peaceful, natural settings.
           </p>
           <button className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-md hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors">
             Stream Now
