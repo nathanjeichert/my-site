@@ -21,21 +21,6 @@ export default function Page() {
           we bring passion and authenticity to every show.
         </p>
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div className="bg-neutral-50 dark:bg-neutral-900 p-6 rounded-lg">
-          <h3 className="text-lg font-semibold mb-2">Latest News</h3>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            Check back soon for updates on new releases, upcoming shows, and behind-the-scenes content.
-          </p>
-        </div>
-        <div className="bg-neutral-50 dark:bg-neutral-900 p-6 rounded-lg">
-          <h3 className="text-lg font-semibold mb-2">Connect With Us</h3>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            Follow us on social media for the latest updates and exclusive content.
-          </p>
-        </div>
-      </div>
     </section>
   )
 }
