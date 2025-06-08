@@ -6,6 +6,13 @@
 }
 
 :root {
+  --midnight: #0a0a0a;
+  --cream: #faf8f3;
+  --rust: #d4622a;
+  --sage: #7d8471;
+  --gold: #f4c430;
+  --burgundy: #800020;
+  --sand: #e8dcc6;
   --sh-class: #2d5e9d;
   --sh-identifier: #354150;
   --sh-sign: #8996a3;
@@ -31,6 +38,158 @@
 
 html {
   min-width: 360px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--midnight);
+  color: var(--cream);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--midnight);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rust);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+/* Grain overlay effect */
+.grain-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.03;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Custom colors */
+.text-cream { color: #faf8f3; }
+.text-rust { color: #d4622a; }
+.text-sage { color: #7d8471; }
+.text-gold { color: #f4c430; }
+.text-burgundy { color: #800020; }
+.text-sand { color: #e8dcc6; }
+
+.bg-midnight { background-color: #0a0a0a; }
+.bg-cream { background-color: #faf8f3; }
+.bg-rust { background-color: #d4622a; }
+.bg-sage { background-color: #7d8471; }
+.bg-gold { background-color: #f4c430; }
+.bg-burgundy { background-color: #800020; }
+.bg-sand { background-color: #e8dcc6; }
+
+.border-cream { border-color: #faf8f3; }
+.border-rust { border-color: #d4622a; }
+.border-sage { border-color: #7d8471; }
+.border-gold { border-color: #f4c430; }
+
+/* Psychedelic gradient backgrounds */
+.gradient-psychedelic {
+  background: linear-gradient(135deg, #d4622a 0%, #f4c430 25%, #7d8471 50%, #800020 75%, #d4622a 100%);
+  background-size: 400% 400%;
+  animation: psychedelicShift 15s ease infinite;
+}
+
+@keyframes psychedelicShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Vintage poster text effect */
+.vintage-shadow {
+  text-shadow: 
+    3px 3px 0px #d4622a,
+    6px 6px 0px #7d8471,
+    9px 9px 0px #800020,
+    12px 12px 20px rgba(0,0,0,0.5);
+}
+
+/* Retro button styles */
+.retro-button {
+  position: relative;
+  background-color: #d4622a;
+  color: #faf8f3;
+  border: 3px solid #faf8f3;
+  padding: 12px 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  box-shadow: 5px 5px 0px #faf8f3;
+}
+
+.retro-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0px #faf8f3;
+  background-color: #f4c430;
+}
+
+.retro-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0px #faf8f3;
+}
+
+/* Wavy text animation */
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-5px); }
+  75% { transform: translateY(5px); }
+}
+
+.wavy-text span {
+  display: inline-block;
+  animation: wave 2s ease-in-out infinite;
+}
+
+.wavy-text span:nth-child(1) { animation-delay: 0s; }
+.wavy-text span:nth-child(2) { animation-delay: 0.1s; }
+.wavy-text span:nth-child(3) { animation-delay: 0.2s; }
+.wavy-text span:nth-child(4) { animation-delay: 0.3s; }
+.wavy-text span:nth-child(5) { animation-delay: 0.4s; }
+.wavy-text span:nth-child(6) { animation-delay: 0.5s; }
+.wavy-text span:nth-child(7) { animation-delay: 0.6s; }
+.wavy-text span:nth-child(8) { animation-delay: 0.7s; }
+.wavy-text span:nth-child(9) { animation-delay: 0.8s; }
+.wavy-text span:nth-child(10) { animation-delay: 0.9s; }
+
+/* Loading animation */
+.loading-dots span {
+  animation: loading 1.4s infinite ease-in-out both;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes loading {
+  0%, 80%, 100% { 
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Smooth transitions */
+* {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .prose .anchor {

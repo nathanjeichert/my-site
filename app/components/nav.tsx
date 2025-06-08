@@ -1,43 +1,89 @@
+'use client'
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { motion } from 'framer-motion'
+import { Music, Calendar, Info, Home } from 'lucide-react'
 
 const navItems = {
   '/': {
     name: 'home',
+    icon: Home,
   },
   '/about': {
     name: 'about',
+    icon: Info,
   },
   '/shows': {
     name: 'shows',
+    icon: Calendar,
   },
   '/music': {
     name: 'music',
+    icon: Music,
   },
 }
 
 export function Navbar() {
+  const pathname = usePathname()
+
   return (
-    <aside className="-ml-[8px] mb-16 tracking-tight">
-      <div className="lg:sticky lg:top-20">
-        <nav
-          className="flex flex-row items-start relative px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
-          id="nav"
-        >
-          <div className="flex flex-row space-x-0 pr-10">
-            {Object.entries(navItems).map(([path, { name }]) => {
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-midnight/90 backdrop-blur-md border-b border-rust/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-3 group">
+            <motion.div
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.5 }}
+              className="w-12 h-12 bg-gradient-to-br from-rust to-gold rounded-full flex items-center justify-center"
+            >
+              <span className="text-cream font-bold text-xl">2</span>
+            </motion.div>
+            <div>
+              <h1 className="text-cream font-bold text-lg leading-tight">Two Against</h1>
+              <h2 className="text-rust text-sm">Nature</h2>
+            </div>
+          </Link>
+
+          {/* Navigation */}
+          <div className="flex items-center space-x-8">
+            {Object.entries(navItems).map(([path, { name, icon: Icon }]) => {
+              const isActive = pathname === path
               return (
                 <Link
                   key={path}
                   href={path}
-                  className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1"
+                  className="relative group"
                 >
-                  {name}
+                  <div className="flex items-center space-x-2">
+                    <Icon 
+                      size={20} 
+                      className={`transition-colors ${
+                        isActive ? 'text-gold' : 'text-cream group-hover:text-rust'
+                      }`}
+                    />
+                    <span 
+                      className={`hidden sm:inline-block text-sm font-medium uppercase tracking-wider transition-colors ${
+                        isActive ? 'text-gold' : 'text-cream group-hover:text-rust'
+                      }`}
+                    >
+                      {name}
+                    </span>
+                  </div>
+                  {isActive && (
+                    <motion.div
+                      layoutId="navbar-indicator"
+                      className="absolute -bottom-[21px] left-0 right-0 h-[3px] bg-gold"
+                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                    />
+                  )}
                 </Link>
               )
             })}
           </div>
-        </nav>
+        </div>
       </div>
-    </aside>
+    </nav>
   )
 }

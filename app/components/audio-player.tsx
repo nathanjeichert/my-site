@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { Play, Pause, Volume2 } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 interface Track {
   id: number
@@ -68,31 +70,42 @@ export function AudioPlayer({ track }: AudioPlayerProps) {
   const progress = duration ? (currentTime / duration) * 100 : 0
 
   return (
-    <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg p-6">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="bg-cream/5 border border-rust/30 rounded-lg p-6 hover:bg-cream/10 transition-colors"
+    >
       <audio ref={audioRef} src={track.src} preload="metadata" />
       
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold mb-1">{track.title}</h3>
-        {track.description && (
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            {track.description}
-          </p>
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h3 className="text-lg font-semibold text-cream">{track.title}</h3>
+          {track.description && (
+            <p className="text-sm text-sand">
+              {track.description}
+            </p>
+          )}
+        </div>
+        
+        {isPlaying && (
+          <motion.div
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+          >
+            <Volume2 size={20} className="text-gold" />
+          </motion.div>
         )}
       </div>
 
-      <div className="flex items-center gap-4 mb-4">
+      <div className="flex items-center gap-4">
         <button
           onClick={togglePlay}
-          className="w-12 h-12 bg-black dark:bg-white text-white dark:text-black rounded-full flex items-center justify-center hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors"
+          className="w-12 h-12 bg-gold text-midnight rounded-full flex items-center justify-center hover:bg-rust transition-colors"
         >
           {isPlaying ? (
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
-            </svg>
+            <Pause size={20} />
           ) : (
-            <svg className="w-5 h-5 ml-1" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-            </svg>
+            <Play size={20} className="ml-1" />
           )}
         </button>
 
@@ -103,14 +116,17 @@ export function AudioPlayer({ track }: AudioPlayerProps) {
             max="100"
             value={progress}
             onChange={handleSeek}
-            className="w-full h-2 bg-neutral-200 dark:bg-neutral-700 rounded-lg appearance-none cursor-pointer"
+            className="w-full h-2 bg-midnight/50 rounded-lg appearance-none cursor-pointer slider"
+            style={{
+              background: `linear-gradient(to right, #f4c430 0%, #f4c430 ${progress}%, rgba(10, 10, 10, 0.5) ${progress}%, rgba(10, 10, 10, 0.5) 100%)`
+            }}
           />
         </div>
 
-        <div className="text-sm text-neutral-600 dark:text-neutral-400 min-w-[80px] text-right">
+        <div className="text-sm text-sand min-w-[80px] text-right">
           {formatTime(currentTime)} / {formatTime(duration)}
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 } 
