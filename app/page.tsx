@@ -3,8 +3,19 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { MapPin, Music, Calendar, ChevronRight, Play } from 'lucide-react'
+import ImageCarousel from './components/image-carousel'
 
 export default function Page() {
+  const bandPhotos = [
+    '/band-photos/IMG_0650.JPG',
+    '/band-photos/IMG_0673.jpg',
+    '/band-photos/IMG_3282.jpg',
+    '/band-photos/1B1859B0-4F55-4C1D-8DAC-6D3ADA66C94C.jpeg',
+    '/band-photos/82560632-D0F3-446C-A801-141D452DDE47.jpeg',
+    '/band-photos/AB205CB5-7678-4A20-8679-E164402D7B09_4_5005_c.jpeg',
+    '/band-photos/11.jpg.jpeg'
+  ];
+
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -21,14 +32,10 @@ export default function Page() {
           transition={{ duration: 0.8 }}
           className="relative z-10 text-center px-4"
         >
-          <h1 className="text-6xl md:text-8xl font-bold mb-4 vintage-shadow">
-            <span className="wavy-text">
-              <span>T</span><span>w</span><span>o</span>
-              <span> </span>
-              <span>A</span><span>g</span><span>a</span><span>i</span><span>n</span><span>s</span><span>t</span>
-            </span>
+          <h1 className="text-6xl md:text-8xl font-black mb-2 text-rust tracking-tight transform scale-y-150 origin-center">
+            <span className="block" style={{ textShadow: '3px 3px 0px #031b33, 6px 6px 0px rgba(212, 98, 42, 0.3)' }}>TWO AGAINST</span>
           </h1>
-          <h2 className="text-4xl md:text-6xl font-bold text-rust mb-8">Nature</h2>
+          <h2 className="text-6xl md:text-8xl font-black text-rust mb-8 tracking-tight transform scale-y-150 origin-center" style={{ textShadow: '3px 3px 0px #031b33, 6px 6px 0px rgba(212, 98, 42, 0.3)' }}>NATURE</h2>
           
           <div className="flex items-center justify-center space-x-2 text-sand mb-12">
             <MapPin size={20} />
@@ -134,11 +141,9 @@ export default function Page() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            {/* Band Photo Placeholder */}
-            <div className="aspect-square bg-sage/20 rounded-lg overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-sand">Band Photo</p>
-              </div>
+            {/* Band Photo Carousel */}
+            <div className="aspect-square rounded-lg overflow-hidden">
+              <ImageCarousel images={bandPhotos} />
             </div>
             <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gold/20 rounded-full blur-3xl"></div>
             <div className="absolute -top-4 -left-4 w-32 h-32 bg-rust/20 rounded-full blur-3xl"></div>

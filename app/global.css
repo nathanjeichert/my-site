@@ -6,7 +6,7 @@
 }
 
 :root {
-  --midnight: #0a0a0a;
+  --midnight: #031b33;
   --cream: #faf8f3;
   --rust: #d4622a;
   --sage: #7d8471;
@@ -85,7 +85,7 @@ body {
 .text-burgundy { color: #800020; }
 .text-sand { color: #e8dcc6; }
 
-.bg-midnight { background-color: #0a0a0a; }
+.bg-midnight { background-color: #031b33; }
 .bg-cream { background-color: #faf8f3; }
 .bg-rust { background-color: #d4622a; }
 .bg-sage { background-color: #7d8471; }

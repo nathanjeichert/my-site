@@ -7,17 +7,10 @@ export interface Track {
   year: string;
 }
 
-export interface StreamingLink {
-  name: string;
-  url: string;
-}
-
 export interface MusicContent {
   tracks: Track[];
   pageContent: {
     title: string;
-    streamingText: string;
-    streamingLinks: StreamingLink[];
   };
 }
 

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Music, Calendar, Info, Home } from 'lucide-react'
+import Image from 'next/image'
 
 const navItems = {
   '/': {
@@ -34,11 +35,17 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
             <motion.div
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.5 }}
-              className="w-12 h-12 bg-gradient-to-br from-rust to-gold rounded-full flex items-center justify-center"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              className="w-12 h-12 rounded-full overflow-hidden"
             >
-              <span className="text-cream font-bold text-xl">2</span>
+              <Image
+                src="/logo.jpeg"
+                alt="Two Against Nature Logo"
+                width={48}
+                height={48}
+                className="w-full h-full object-cover"
+              />
             </motion.div>
             <div>
               <h1 className="text-cream font-bold text-lg leading-tight">Two Against</h1>

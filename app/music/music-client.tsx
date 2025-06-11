@@ -160,25 +160,6 @@ export default function MusicClient({ content }: MusicPageProps) {
           </div>
         </motion.div>
 
-        {/* Streaming Links */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          className="mt-20 text-center"
-        >
-          <h3 className="text-2xl font-bold text-sage mb-6">{pageContent.streamingText}</h3>
-          <div className="flex justify-center space-x-8">
-            {pageContent.streamingLinks.map((link, index) => (
-              <a 
-                key={index}
-                href={link.url} 
-                className="text-cream hover:text-gold transition-colors"
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
-        </motion.section>
       </div>
     </div>
   )

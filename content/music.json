@@ -1,38 +1,31 @@
 {
+  "pageContent": {
+    "title": "Our Music"
+  },
   "tracks": [
     {
-      "id": 1,
+      "id": 2,
       "title": "Long May You Run",
       "duration": "4:12",
       "src": "/music/Long May You Run.mp3",
-      "album": "Barn Sessions",
-      "year": "2024"
+      "album": "",
+      "year": "2025"
     },
     {
-      "id": 2,
+      "id": 1,
       "title": "Yula Valley",
       "duration": "3:48",
       "src": "/music/Yula valley.mp3",
-      "album": "Barn Sessions",
-      "year": "2024"
+      "album": "",
+      "year": "2025"
     },
     {
       "id": 3,
       "title": "Cassidy",
       "duration": "5:21",
       "src": "/music/Cassidy.mp3",
-      "album": "Barn Sessions",
-      "year": "2024"
+      "album": "",
+      "year": "2025"
     }
-  ],
-  "pageContent": {
-    "title": "Our Music",
-    "streamingText": "Find us on",
-    "streamingLinks": [
-      { "name": "Spotify", "url": "#" },
-      { "name": "Apple Music", "url": "#" },
-      { "name": "Bandcamp", "url": "#" },
-      { "name": "SoundCloud", "url": "#" }
-    ]
-  }
+  ]
 }

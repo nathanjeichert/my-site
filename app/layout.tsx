@@ -5,7 +5,6 @@ import { GeistMono } from 'geist/font/mono'
 import { Navbar } from './components/nav'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import Footer from './components/footer'
 import { baseUrl } from './sitemap'
 
 export const metadata: Metadata = {
@@ -15,6 +14,11 @@ export const metadata: Metadata = {
     template: '%s | Two Against Nature',
   },
   description: 'Two Against Nature - A young americana duo from Sonoma County, CA',
+  icons: {
+    icon: '/logo.jpeg',
+    shortcut: '/logo.jpeg',
+    apple: '/logo.jpeg',
+  },
   openGraph: {
     title: 'Two Against Nature',
     description: 'Two Against Nature - A young americana duo from Sonoma County, CA',
@@ -22,6 +26,7 @@ export const metadata: Metadata = {
     siteName: 'Two Against Nature',
     locale: 'en_US',
     type: 'website',
+    images: ['/logo.jpeg'],
   },
   robots: {
     index: true,
@@ -57,7 +62,6 @@ export default function RootLayout({
         <main className="relative z-10">
           <Navbar />
           {children}
-          <Footer />
           <Analytics />
           <SpeedInsights />
         </main>
