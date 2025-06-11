@@ -18,13 +18,9 @@ export default function Page() {
   ];
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen pt-32">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 gradient-psychedelic"></div>
-        </div>
 
         {/* Hero Content */}
         <motion.div 
