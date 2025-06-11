@@ -9,7 +9,7 @@
       "venue": "The Blue Barn",
       "location": "Novato, CA",
       "description": "",
-      "ticketLink": "#",
+      "hasTickets": false,
       "soldOut": false
     },
     {
@@ -18,7 +18,7 @@
       "venue": "The Blue Barn",
       "location": "Novato, CA",
       "description": "",
-      "ticketLink": "#",
+      "hasTickets": false,
       "soldOut": false
     }
   ]

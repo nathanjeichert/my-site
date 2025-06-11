@@ -33,15 +33,14 @@ export function Navbar() {
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center"
-              style={{ backgroundColor: '#031b33' }}
+              className="w-12 h-12 rounded-full overflow-hidden"
             >
               <Image
-                src="/logo_outline_only2.png"
+                src="/logo_notext_onblue.png"
                 alt="Two Against Nature Logo"
-                width={40}
-                height={40}
-                className="object-contain"
+                width={48}
+                height={48}
+                className="w-full h-full object-cover"
               />
             </motion.div>
             <div>

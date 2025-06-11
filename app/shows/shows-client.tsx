@@ -33,7 +33,7 @@ export default function ShowsClient({ content }: ShowsPageProps) {
             >
               <div className="grid md:grid-cols-3 gap-6">
                 <div>
-                  <div className="flex items-center text-gold mb-2">
+                  <div className="flex items-center text-cream mb-2">
                     <Calendar size={20} className="mr-2" />
                     <span className="font-bold">{show.date}</span>
                   </div>
@@ -55,16 +55,16 @@ export default function ShowsClient({ content }: ShowsPageProps) {
                   <p className="text-sand text-sm mb-4 md:mb-0">{show.description}</p>
                   {show.soldOut ? (
                     <span className="text-rust font-bold uppercase">Sold Out</span>
-                  ) : (
+                  ) : show.hasTickets ? (
                     <a 
-                      href={show.ticketLink}
-                      className="inline-flex items-center text-gold hover:text-rust transition-colors group"
+                      href="#"
+                      className="inline-flex items-center text-cream hover:text-rust transition-colors group"
                     >
                       <Ticket size={20} className="mr-2" />
                       <span>Get Tickets</span>
                       <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
                     </a>
-                  )}
+                  ) : null}
                 </div>
               </div>
             </motion.div>

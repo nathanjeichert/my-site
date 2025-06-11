@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Play, Pause, SkipForward, SkipBack, Volume2 } from 'lucide-react'
 import { MusicContent } from '@/types/content'
@@ -13,9 +13,19 @@ export default function MusicClient({ content }: MusicPageProps) {
   const { tracks, pageContent } = content;
   const [currentTrack, setCurrentTrack] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(0)
+  const audioRef = useRef<HTMLAudioElement>(null)
 
   const handlePlayPause = () => {
-    setIsPlaying(!isPlaying)
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause()
+      } else {
+        audioRef.current.play()
+      }
+      setIsPlaying(!isPlaying)
+    }
   }
 
   const handleNext = () => {
@@ -27,6 +37,42 @@ export default function MusicClient({ content }: MusicPageProps) {
     setCurrentTrack((prev) => (prev - 1 + tracks.length) % tracks.length)
     setIsPlaying(false)
   }
+
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60)
+    const seconds = Math.floor(time % 60)
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`
+  }
+
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    const updateTime = () => setCurrentTime(audio.currentTime)
+    const updateDuration = () => setDuration(audio.duration)
+    const handleEnded = () => {
+      setIsPlaying(false)
+      handleNext()
+    }
+
+    audio.addEventListener('timeupdate', updateTime)
+    audio.addEventListener('loadedmetadata', updateDuration)
+    audio.addEventListener('ended', handleEnded)
+
+    return () => {
+      audio.removeEventListener('timeupdate', updateTime)
+      audio.removeEventListener('loadedmetadata', updateDuration)
+      audio.removeEventListener('ended', handleEnded)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.load()
+      setCurrentTime(0)
+      setIsPlaying(false)
+    }
+  }, [currentTrack])
 
   return (
     <div className="min-h-screen pt-32 px-4">
@@ -78,18 +124,21 @@ export default function MusicClient({ content }: MusicPageProps) {
               {/* Progress Bar */}
               <div className="mb-8">
                 <div className="h-2 bg-midnight/50 rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full bg-gold"
-                    initial={{ width: "0%" }}
-                    animate={{ width: isPlaying ? "100%" : "0%" }}
-                    transition={{ duration: 240, ease: "linear" }}
+                  <div 
+                    className="h-full bg-gold transition-all"
+                    style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
                   />
                 </div>
                 <div className="flex justify-between text-sm text-sand mt-2">
-                  <span>0:00</span>
+                  <span>{formatTime(currentTime)}</span>
                   <span>{tracks[currentTrack].duration}</span>
                 </div>
               </div>
+
+              {/* Hidden Audio Element */}
+              <audio ref={audioRef} preload="metadata">
+                <source src={tracks[currentTrack].src} type="audio/mpeg" />
+              </audio>
 
               {/* Controls */}
               <div className="flex items-center justify-center space-x-6">
@@ -132,7 +181,10 @@ export default function MusicClient({ content }: MusicPageProps) {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
-                onClick={() => setCurrentTrack(index)}
+                onClick={() => {
+                  setCurrentTrack(index)
+                  setIsPlaying(false)
+                }}
                 className={`p-4 rounded-lg cursor-pointer transition-all ${
                   currentTrack === index
                     ? 'bg-gold/20 border border-gold'

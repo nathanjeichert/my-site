@@ -78,34 +78,6 @@ export default function Page() {
         </motion.div>
       </section>
 
-      {/* Featured Video Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.h3 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl font-bold text-rust mb-8"
-          >
-            Latest Performance
-          </motion.h3>
-          
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="relative aspect-video bg-sage/20 rounded-lg overflow-hidden group cursor-pointer"
-          >
-            {/* Video Placeholder */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <Play size={64} className="text-gold mb-4 mx-auto group-hover:scale-110 transition-transform" />
-                <p className="text-sand">Video Coming Soon</p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Band Story Section */}
       <section className="py-20 px-4 bg-rust/10">
@@ -115,7 +87,7 @@ export default function Page() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-3xl font-bold text-gold mb-6">Our Story</h3>
+            <h3 className="text-3xl font-bold text-gold mb-6">About The Band</h3>
             <div className="space-y-4 text-sand">
               <p>
                 Born from late-night jam sessions in a converted barn studio overlooking 

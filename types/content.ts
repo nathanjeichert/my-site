@@ -20,7 +20,7 @@ export interface Show {
   venue: string;
   location: string;
   description: string;
-  ticketLink: string;
+  hasTickets: boolean;
   soldOut: boolean;
 }
 
