@@ -18,9 +18,9 @@ export default function Page() {
   ];
 
   return (
-    <div className="min-h-screen pt-32">
+    <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
 
         {/* Hero Content */}
         <motion.div 
