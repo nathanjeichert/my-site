@@ -53,3 +53,40 @@ The music page features a custom-built audio player with:
 - Track switching functionality
 - Progress bar simulation (visual only, not connected to actual audio)
 - Track listing with click-to-select functionality
+
+## Content Management System
+
+### JSON-Based Content Structure
+All site content is managed through JSON files in the `/content/` directory:
+- `content/music.json` - Track listings and music page content
+- `content/shows.json` - Show information and venue details
+- `content/about.json` - Band member profiles, philosophy, timeline
+- `content/site.json` - Navigation, footer, and general site settings
+
+### Tina CMS Integration
+- Visual editing interface available at `/admin` (requires Tina.io account)
+- Form-based content editing with real-time preview
+- Automatic GitHub commits and Vercel deployments
+- TypeScript types ensure content structure integrity
+
+### Content Editing Workflow
+1. **Visual Editor**: Edit at `/admin` with user-friendly forms
+2. **Direct Editing**: Modify JSON files in GitHub repository
+3. **Auto-Deploy**: Changes trigger automatic Vercel rebuilds
+4. **Version Control**: All changes tracked in Git history
+
+### CMS Configuration
+- Tina config: `tina/config.ts` - defines content schemas and editing interface
+- Content types: `types/content.ts` - TypeScript interfaces for all content
+- Content loader: `lib/content.ts` - server-side content loading utilities
+
+### Environment Variables Required
+```
+NEXT_PUBLIC_TINA_CLIENT_ID=your_client_id
+TINA_TOKEN=your_token
+```
+
+### Architecture Notes
+- Server components load content at build time for optimal performance
+- Client components handle interactivity while maintaining content structure
+- Split component architecture (page.tsx → client.tsx) maintains SSR benefits

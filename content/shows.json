@@ -1,0 +1,45 @@
+{
+  "pageContent": {
+    "title": "Upcoming Shows",
+    "pastShowsTitle": "Past Adventures"
+  },
+  "upcomingShows": [
+    {
+      "date": "March 15, 2025",
+      "time": "8:00 PM",
+      "venue": "The Mystic Theatre",
+      "location": "Petaluma, CA",
+      "description": "An intimate evening of psychedelic americana under the stars.",
+      "ticketLink": "#",
+      "soldOut": false
+    },
+    {
+      "date": "March 22, 2025",
+      "time": "7:30 PM",
+      "venue": "HopMonk Tavern",
+      "location": "Sebastopol, CA",
+      "description": "Join us for a night of music and local brews in the heart of Sonoma County.",
+      "ticketLink": "#",
+      "soldOut": false
+    },
+    {
+      "date": "April 5, 2025",
+      "time": "9:00 PM",
+      "venue": "The Independent",
+      "location": "San Francisco, CA",
+      "description": "Our biggest show yet in the city by the bay.",
+      "ticketLink": "#",
+      "soldOut": true
+    }
+  ],
+  "pastShows": [
+    {
+      "title": "Sonoma Folk Festival 2024",
+      "description": "Where it all began - our first public performance together."
+    },
+    {
+      "title": "Barn Sessions Live 2024",
+      "description": "An unforgettable night of music under the harvest moon."
+    }
+  ]
+}

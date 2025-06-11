@@ -1,0 +1,23 @@
+{
+  "general": {
+    "siteTitle": "Two Against Nature",
+    "tagline": "A young americana duo from Sonoma County, CA",
+    "description": "Two Against Nature - A young americana duo from Sonoma County, CA"
+  },
+  "navigation": {
+    "items": [
+      { "name": "Home", "href": "/" },
+      { "name": "About", "href": "/about" },
+      { "name": "Music", "href": "/music" },
+      { "name": "Shows", "href": "/shows" }
+    ]
+  },
+  "footer": {
+    "copyright": "© 2024 Two Against Nature. All rights reserved.",
+    "socialLinks": [
+      { "name": "Instagram", "url": "#" },
+      { "name": "Spotify", "url": "#" },
+      { "name": "Bandcamp", "url": "#" }
+    ]
+  }
+}

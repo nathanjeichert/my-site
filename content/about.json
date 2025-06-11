@@ -1,0 +1,52 @@
+{
+  "pageContent": {
+    "title": "About Two Against Nature",
+    "philosophyTitle": "Our Philosophy",
+    "journeyTitle": "Our Journey"
+  },
+  "bandMembers": [
+    {
+      "name": "Member One",
+      "role": "Guitar, Vocals, Harmonica",
+      "description": "With roots deep in Delta blues and a heart that beats to the rhythm of the cosmos, Member One brings the grounding force of tradition to our sonic explorations.",
+      "color": "rust"
+    },
+    {
+      "name": "Member Two", 
+      "role": "Vocals, Keys, Percussion",
+      "description": "A wanderer at heart with a voice that carries the wisdom of ancient hills, Member Two weaves ethereal melodies through our earthbound rhythms.",
+      "color": "sage"
+    }
+  ],
+  "philosophy": [
+    {
+      "title": "Authenticity",
+      "description": "Every note we play comes from a place of truth, unfiltered and raw as the California wilderness."
+    },
+    {
+      "title": "Connection",
+      "description": "We believe music is the bridge between souls, nature, and the cosmic dance of existence."
+    },
+    {
+      "title": "Evolution",
+      "description": "While honoring tradition, we push boundaries, exploring new territories of sound and story."
+    }
+  ],
+  "timeline": [
+    {
+      "year": "2023",
+      "title": "The Beginning",
+      "description": "Two musicians meet at a folk festival, discover a shared vision."
+    },
+    {
+      "year": "2024",
+      "title": "First Recordings",
+      "description": "Barn sessions turn into our debut tracks, capturing lightning in a bottle."
+    },
+    {
+      "year": "2025",
+      "title": "The Road Ahead",
+      "description": "Tours planned, album in the works, the journey continues..."
+    }
+  ]
+}
