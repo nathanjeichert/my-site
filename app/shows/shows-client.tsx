@@ -9,7 +9,7 @@ interface ShowsPageProps {
 }
 
 export default function ShowsClient({ content }: ShowsPageProps) {
-  const { pageContent, upcomingShows, pastShows } = content;
+  const { pageContent, upcomingShows } = content;
 
   return (
     <div className="min-h-screen pt-32 px-4">
@@ -82,25 +82,6 @@ export default function ShowsClient({ content }: ShowsPageProps) {
           </motion.div>
         )}
 
-        {/* Past Shows Section */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          className="mt-20"
-        >
-          <h2 className="text-3xl font-bold text-rust mb-8">{pageContent.pastShowsTitle}</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {pastShows.map((show, index) => (
-              <div 
-                key={index}
-                className={`rounded-lg p-6 ${index % 2 === 0 ? 'bg-sage/10' : 'bg-rust/10'}`}
-              >
-                <h3 className="text-xl font-bold text-cream mb-2">{show.title}</h3>
-                <p className="text-sand">{show.description}</p>
-              </div>
-            ))}
-          </div>
-        </motion.section>
       </div>
     </div>
   )

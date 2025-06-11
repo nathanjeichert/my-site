@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Music, Mic, Heart, Mountain } from 'lucide-react'
+import { Music, Mic } from 'lucide-react'
 import { AboutContent } from '@/types/content'
 
 interface AboutPageProps {
@@ -16,7 +16,7 @@ const colorMap = {
 };
 
 export default function AboutClient({ content }: AboutPageProps) {
-  const { pageContent, bandMembers, philosophy, timeline } = content;
+  const { pageContent, bandMembers } = content;
 
   return (
     <div className="min-h-screen pt-32 px-4">
@@ -55,55 +55,6 @@ export default function AboutClient({ content }: AboutPageProps) {
           ))}
         </section>
 
-        {/* Philosophy Section */}
-        <motion.section 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="mb-20"
-        >
-          <h2 className="text-3xl font-bold text-rust mb-8">{pageContent.philosophyTitle}</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {philosophy.map((item, index) => {
-              const icons = [Heart, Mountain, Music];
-              const Icon = icons[index] || Music;
-              
-              return (
-                <div key={index} className="text-center">
-                  <Icon size={48} className="text-gold mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-cream mb-2">{item.title}</h3>
-                  <p className="text-sand">
-                    {item.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </motion.section>
-
-        {/* Timeline Section */}
-        <motion.section 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          className="mb-20"
-        >
-          <h2 className="text-3xl font-bold text-sage mb-8">{pageContent.journeyTitle}</h2>
-          <div className="space-y-8">
-            {timeline.map((item, index) => {
-              const colors = ['gold', 'rust', 'sage'];
-              const color = colors[index % colors.length];
-              
-              return (
-                <div key={index} className="flex items-start space-x-4">
-                  <div className={`w-4 h-4 bg-${color} rounded-full mt-1`}></div>
-                  <div>
-                    <h3 className="text-xl font-bold text-cream">{item.year} - {item.title}</h3>
-                    <p className="text-sand">{item.description}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </motion.section>
       </div>
     </div>
   )

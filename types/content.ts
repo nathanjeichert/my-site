@@ -31,18 +31,11 @@ export interface Show {
   soldOut: boolean;
 }
 
-export interface PastShow {
-  title: string;
-  description: string;
-}
-
 export interface ShowsContent {
   pageContent: {
     title: string;
-    pastShowsTitle: string;
   };
   upcomingShows: Show[];
-  pastShows: PastShow[];
 }
 
 export interface BandMember {
@@ -52,26 +45,11 @@ export interface BandMember {
   color: string;
 }
 
-export interface Philosophy {
-  title: string;
-  description: string;
-}
-
-export interface TimelineItem {
-  year: string;
-  title: string;
-  description: string;
-}
-
 export interface AboutContent {
   pageContent: {
     title: string;
-    philosophyTitle: string;
-    journeyTitle: string;
   };
   bandMembers: BandMember[];
-  philosophy: Philosophy[];
-  timeline: TimelineItem[];
 }
 
 export interface NavigationItem {
