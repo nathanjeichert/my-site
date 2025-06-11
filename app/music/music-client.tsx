@@ -123,9 +123,21 @@ export default function MusicClient({ content }: MusicPageProps) {
 
               {/* Progress Bar */}
               <div className="mb-8">
-                <div className="h-2 bg-midnight/50 rounded-full overflow-hidden">
+                <div 
+                  className="h-2 bg-midnight/50 rounded-full overflow-hidden cursor-pointer relative"
+                  onClick={(e) => {
+                    if (audioRef.current && duration) {
+                      const rect = e.currentTarget.getBoundingClientRect()
+                      const clickX = e.clientX - rect.left
+                      const clickRatio = clickX / rect.width
+                      const newTime = clickRatio * duration
+                      audioRef.current.currentTime = newTime
+                      setCurrentTime(newTime)
+                    }
+                  }}
+                >
                   <div 
-                    className="h-full bg-gold transition-all"
+                    className="h-full bg-rust transition-all"
                     style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
                   />
                 </div>

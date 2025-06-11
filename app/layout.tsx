@@ -15,8 +15,8 @@ export const metadata: Metadata = {
   },
   description: 'Two Against Nature - A young americana duo from Sonoma County, CA',
   icons: {
-    icon: '/logo_notext_onblue.png',
-    shortcut: '/logo_notext_onblue.png',
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
     apple: '/logo_notext_onblue.png',
   },
   openGraph: {

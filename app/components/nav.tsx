@@ -36,11 +36,12 @@ export function Navbar() {
               className="w-12 h-12 rounded-full overflow-hidden"
             >
               <Image
-                src="/logo_notext_onblue.png"
+                src="/logo_notext_onblue.png?v=1"
                 alt="Two Against Nature Logo"
                 width={48}
                 height={48}
                 className="w-full h-full object-cover"
+                unoptimized
               />
             </motion.div>
             <div>
