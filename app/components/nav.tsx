@@ -3,17 +3,13 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { Music, Calendar, Info, Home } from 'lucide-react'
+import { Music, Calendar, Home } from 'lucide-react'
 import Image from 'next/image'
 
 const navItems = {
   '/': {
     name: 'home',
     icon: Home,
-  },
-  '/about': {
-    name: 'about',
-    icon: Info,
   },
   '/shows': {
     name: 'shows',

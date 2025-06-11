@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { MapPin, Music, Calendar, ChevronRight, Play } from 'lucide-react'
 import ImageCarousel from './components/image-carousel'
+import Image from 'next/image'
 
 export default function Page() {
   const bandPhotos = [
@@ -32,10 +33,16 @@ export default function Page() {
           transition={{ duration: 0.8 }}
           className="relative z-10 text-center px-4"
         >
-          <h1 className="text-6xl md:text-8xl font-black mb-2 text-rust tracking-tight transform scale-y-150 origin-center">
-            <span className="block" style={{ textShadow: '3px 3px 0px #031b33, 6px 6px 0px rgba(212, 98, 42, 0.3)' }}>TWO AGAINST</span>
-          </h1>
-          <h2 className="text-6xl md:text-8xl font-black text-rust mb-8 tracking-tight transform scale-y-150 origin-center" style={{ textShadow: '3px 3px 0px #031b33, 6px 6px 0px rgba(212, 98, 42, 0.3)' }}>NATURE</h2>
+          <div className="w-full max-w-4xl mb-8">
+            <Image
+              src="/logo_no_background.svg"
+              alt="Two Against Nature"
+              width={800}
+              height={400}
+              className="w-full h-auto"
+              priority
+            />
+          </div>
           
           <div className="flex items-center justify-center space-x-2 text-sand mb-12">
             <MapPin size={20} />
@@ -129,10 +136,6 @@ export default function Page() {
                 where steel guitars meet synthesizers and harmonies float like coastal fog.
               </p>
             </div>
-            <Link href="/about" className="inline-flex items-center text-rust hover:text-gold mt-6 group">
-              Read More 
-              <ChevronRight size={20} className="ml-1 group-hover:translate-x-1 transition-transform" />
-            </Link>
           </motion.div>
 
           <motion.div
@@ -151,30 +154,6 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Call to Action Section */}
-      <section className="py-20 px-4">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto text-center"
-        >
-          <h3 className="text-4xl font-bold text-cream mb-6">Join Our Journey</h3>
-          <p className="text-xl text-sand mb-8">
-            Subscribe to our newsletter for exclusive content, tour dates, and stories from the road.
-          </p>
-          <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="your@email.com"
-              className="flex-1 px-6 py-3 bg-cream/10 border-2 border-rust rounded-lg text-cream placeholder-sand/50 focus:outline-none focus:border-gold"
-            />
-            <button type="submit" className="retro-button">
-              Subscribe
-            </button>
-          </form>
-        </motion.div>
-      </section>
     </div>
   )
 }
