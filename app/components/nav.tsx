@@ -25,7 +25,7 @@ export function Navbar() {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-rust/30" style={{ backgroundColor: '#fed99f' }}>
+    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-rust/30" style={{ backgroundColor: '#db7b31' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -33,14 +33,15 @@ export function Navbar() {
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              className="w-12 h-12 rounded-full overflow-hidden"
+              className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center"
+              style={{ backgroundColor: '#031b33' }}
             >
               <Image
-                src="/logo.jpeg"
+                src="/logo_outline_only2.png"
                 alt="Two Against Nature Logo"
-                width={48}
-                height={48}
-                className="w-full h-full object-cover"
+                width={40}
+                height={40}
+                className="object-contain"
               />
             </motion.div>
             <div>
@@ -62,12 +63,12 @@ export function Navbar() {
                     <Icon 
                       size={20} 
                       className={`transition-colors ${
-                        isActive ? 'text-gold' : 'text-black group-hover:text-rust'
+                        isActive ? 'text-cream' : 'text-black group-hover:text-rust'
                       }`}
                     />
                     <span 
                       className={`hidden sm:inline-block text-sm font-medium uppercase tracking-wider transition-colors ${
-                        isActive ? 'text-gold' : 'text-black group-hover:text-rust'
+                        isActive ? 'text-cream' : 'text-black group-hover:text-rust'
                       }`}
                     >
                       {name}
@@ -76,7 +77,7 @@ export function Navbar() {
                   {isActive && (
                     <motion.div
                       layoutId="navbar-indicator"
-                      className="absolute -bottom-[21px] left-0 right-0 h-[3px] bg-gold"
+                      className="absolute -bottom-[21px] left-0 right-0 h-[3px] bg-cream"
                       transition={{ type: "spring", stiffness: 350, damping: 30 }}
                     />
                   )}
