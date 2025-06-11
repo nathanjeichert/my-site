@@ -1,12 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Guitar, Mic, Heart, Mountain } from 'lucide-react'
+import { Music, Mic, Heart, Mountain } from 'lucide-react'
 
-export const metadata = {
-  title: 'About',
-  description: 'Learn more about Two Against Nature - our story, our music, and our journey.',
-}
 
 export default function AboutPage() {
   return (
@@ -29,7 +25,7 @@ export default function AboutPage() {
             className="bg-rust/10 rounded-lg p-8"
           >
             <div className="w-full h-64 bg-sage/20 rounded-lg mb-6 flex items-center justify-center">
-              <Guitar size={48} className="text-gold" />
+              <Music size={48} className="text-gold" />
             </div>
             <h3 className="text-2xl font-bold text-gold mb-2">Member One</h3>
             <p className="text-rust mb-4">Guitar, Vocals, Harmonica</p>
@@ -82,7 +78,7 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="text-center">
-              <Guitar size={48} className="text-gold mx-auto mb-4" />
+              <Music size={48} className="text-gold mx-auto mb-4" />
               <h3 className="text-xl font-bold text-cream mb-2">Evolution</h3>
               <p className="text-sand">
                 While honoring tradition, we push boundaries, 

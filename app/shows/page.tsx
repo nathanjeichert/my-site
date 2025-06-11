@@ -3,10 +3,6 @@
 import { motion } from 'framer-motion'
 import { Calendar, MapPin, Clock, Ticket, ChevronRight } from 'lucide-react'
 
-export const metadata = {
-  title: 'Shows',
-  description: 'Upcoming concerts and events for Two Against Nature.',
-}
 
 const upcomingShows = [
   {

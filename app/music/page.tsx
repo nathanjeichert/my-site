@@ -4,10 +4,6 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Play, Pause, SkipForward, SkipBack, Volume2 } from 'lucide-react'
 
-export const metadata = {
-  title: 'Music',
-  description: 'Listen to Two Against Nature\'s latest tracks and releases.',
-}
 
 // Our actual tracks
 const tracks = [
