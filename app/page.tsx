@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { MapPin, Music, Calendar, ChevronRight, Play } from 'lucide-react'
+import { MapPin, Music, Calendar, ChevronRight, Play, Mail } from 'lucide-react'
 import ImageCarousel from './components/image-carousel'
 import Image from 'next/image'
 
@@ -40,21 +40,14 @@ export default function Page() {
             />
           </div>
           
-          <div className="flex items-center justify-center space-x-2 text-sand mb-12">
-            <MapPin size={20} />
-            <span className="text-lg">Sonoma County, California</span>
-          </div>
-
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
             className="space-y-4"
           >
-            <p className="text-xl text-sand max-w-2xl mx-auto leading-relaxed">
-              Where the rolling hills meet the Pacific fog, two souls merge americana roots 
-              with psychedelic dreams, crafting stories of love, loss, and the eternal dance 
-              between humanity and the wild.
+            <p className="text-xl text-sand max-w-2xl mx-auto leading-relaxed font-bold">
+              Two Against Nature is a Bay Area band bringing familiar sounds in new directions and to new audiences.
             </p>
             
             <div className="flex flex-wrap justify-center gap-4 mt-8">
@@ -64,18 +57,14 @@ export default function Page() {
               <Link href="/shows" className="retro-button bg-transparent border-rust text-rust hover:bg-rust hover:text-cream">
                 See Us Live
               </Link>
+              <a href="mailto:nathanjeichert@gmail.com" className="retro-button bg-transparent border-rust text-rust hover:bg-rust hover:text-cream flex items-center gap-2">
+                <Mail size={16} />
+                Contact Us
+              </a>
             </div>
           </motion.div>
         </motion.div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <ChevronRight size={32} className="text-gold rotate-90" />
-        </motion.div>
       </section>
 
 
@@ -87,21 +76,13 @@ export default function Page() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-3xl font-bold text-gold mb-6">About The Band</h3>
+            <h3 className="text-3xl font-bold text-cream mb-6">About The Band</h3>
             <div className="space-y-4 text-sand">
               <p>
-                Born from late-night jam sessions in a converted barn studio overlooking 
-                the Sonoma vineyards, Two Against Nature emerged as an unlikely fusion 
-                of traditional American folk and exploratory psychedelia.
+                Evan Pellkofer (guitar) and Nathan Eichert (keys) have been playing music together since elementary school. After a decade-plus, and with a little help from a rotating cast of talented friends, the duo is bringing their blend of blues, folk, jazz, and psychedelic rock to audiences around the San Francisco Bay Area.
               </p>
               <p>
-                We draw inspiration from the misty mornings of Northern California, 
-                the stories of travelers and dreamers, and the timeless tension between 
-                progress and preservation.
-              </p>
-              <p>
-                Our music is a journey through sun-soaked valleys and moonlit forests, 
-                where steel guitars meet synthesizers and harmonies float like coastal fog.
+                Two Against Nature's diverse set lists feature a blend of original songs and their take on the music that formed the soundtrack of their childhood, such as the Grateful Dead, Crosby, Stills, Nash and Young, and Steely Dan.
               </p>
             </div>
           </motion.div>
