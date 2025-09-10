@@ -1,14 +1,14 @@
 @import 'tailwindcss';
 
 ::selection {
-  background-color: #47a3f3;
+  background-color: #355E3B;
   color: #fefefe;
 }
 
 :root {
-  --midnight: #031b33;
+  --midnight: #0b3d2e;
   --cream: #faf8f3;
-  --rust: #d4622a;
+  --rust: #D7B48A;
   --sage: #7d8471;
   --gold: #faf8f3;
   --burgundy: #800020;
@@ -43,7 +43,7 @@ html {
 
 body {
   background-color: var(--midnight);
-  color: var(--cream);
+  color: var(--rust);
 }
 
 /* Custom scrollbar */
@@ -79,7 +79,7 @@ body {
 
 /* Custom colors */
 .text-cream { color: #faf8f3; }
-.text-rust { color: #d4622a; }
+.text-rust { color: #D7B48A; }
 .text-sage { color: #7d8471; }
 .text-gold { color: #f4c430; }
 .text-burgundy { color: #800020; }
@@ -87,20 +87,20 @@ body {
 
 .bg-midnight { background-color: #031b33; }
 .bg-cream { background-color: #faf8f3; }
-.bg-rust { background-color: #d4622a; }
+.bg-rust { background-color: #D7B48A; }
 .bg-sage { background-color: #7d8471; }
 .bg-gold { background-color: #f4c430; }
 .bg-burgundy { background-color: #800020; }
 .bg-sand { background-color: #e8dcc6; }
 
 .border-cream { border-color: #faf8f3; }
-.border-rust { border-color: #d4622a; }
+.border-rust { border-color: #D7B48A; }
 .border-sage { border-color: #7d8471; }
 .border-gold { border-color: #f4c430; }
 
 /* Psychedelic gradient backgrounds */
 .gradient-psychedelic {
-  background: linear-gradient(135deg, #d4622a 0%, #f4c430 25%, #7d8471 50%, #800020 75%, #d4622a 100%);
+  background: linear-gradient(135deg, #355E3B 0%, #D7B48A 25%, #7d8471 50%, #355E3B 75%, #D7B48A 100%);
   background-size: 400% 400%;
   animation: psychedelicShift 15s ease infinite;
 }
@@ -114,7 +114,7 @@ body {
 /* Vintage poster text effect */
 .vintage-shadow {
   text-shadow: 
-    3px 3px 0px #d4622a,
+    3px 3px 0px #D7B48A,
     6px 6px 0px #7d8471,
     9px 9px 0px #800020,
     12px 12px 20px rgba(0,0,0,0.5);
@@ -123,26 +123,26 @@ body {
 /* Retro button styles */
 .retro-button {
   position: relative;
-  background-color: #d4622a;
+  background-color: #355E3B;
   color: #faf8f3;
-  border: 3px solid #faf8f3;
+  border: 3px solid #D7B48A;
   padding: 12px 32px;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
   transition: all 0.3s ease;
-  box-shadow: 5px 5px 0px #faf8f3;
+  box-shadow: 5px 5px 0px #D7B48A;
 }
 
 .retro-button:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0px #faf8f3;
-  background-color: #f4c430;
+  box-shadow: 7px 7px 0px #D7B48A;
+  background-color: #467C57;
 }
 
 .retro-button:active {
   transform: translate(2px, 2px);
-  box-shadow: 3px 3px 0px #faf8f3;
+  box-shadow: 3px 3px 0px #D7B48A;
 }
 
 /* Wavy text animation */

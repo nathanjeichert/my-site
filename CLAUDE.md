@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Architecture
 
-This is a Next.js 14 (App Router) website for Two Against Nature, a psychedelic americana duo from Sonoma County, CA. The site features a custom audio player, show listings, and psychedelic design aesthetic.
+This is a Next.js 14 (App Router) website for Northern Disconnection, a psychedelic americana duo from Sonoma County, CA. The site features a custom audio player, show listings, and forest-inspired design aesthetic.
 
 ### Key Technologies
 - **Framework**: Next.js 14 with App Router
@@ -21,9 +21,9 @@ This is a Next.js 14 (App Router) website for Two Against Nature, a psychedelic 
 
 ### Custom Theme System
 The site uses a custom color palette defined in `app/global.css:8-25`:
-- `--midnight` (#0a0a0a) - Primary background
-- `--cream` (#faf8f3) - Primary text
-- `--rust` (#d4622a) - Accent color
+- `--midnight` (#0b3d2e) - Primary background
+- `--cream` (#faf8f3) - Light text
+- `--rust` (#D7B48A) - Accent color
 - `--sage` (#7d8471) - Secondary accent
 - `--gold` (#f4c430) - Highlight color
 - `--burgundy` (#800020) - Dark accent

@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { MapPin, Music, Calendar, ChevronRight, Play, Mail } from 'lucide-react'
+import { Music, Calendar, ChevronRight, Mail, Youtube, Instagram } from 'lucide-react'
 import ImageCarousel from './components/image-carousel'
 import Image from 'next/image'
 
@@ -31,10 +31,10 @@ export default function Page() {
         >
           <div className="w-full max-w-4xl mb-8">
             <Image
-              src="/logo_no_background.svg"
-              alt="Two Against Nature"
+              src="/northern-disconnection-logo.svg"
+              alt="Northern Disconnection"
               width={800}
-              height={400}
+              height={800}
               className="w-full h-auto"
               priority
             />
@@ -47,19 +47,27 @@ export default function Page() {
             className="space-y-4"
           >
             <p className="text-xl text-sand max-w-2xl mx-auto leading-relaxed font-bold">
-              Two Against Nature is a Bay Area band bringing familiar sounds in new directions and to new audiences.
+              Northern Disconnection is a Bay Area band bringing familiar sounds in new directions and to new audiences.
             </p>
             
             <div className="flex flex-wrap justify-center gap-4 mt-8">
               <Link href="/music" className="retro-button">
                 Listen Now
               </Link>
-              <Link href="/shows" className="retro-button bg-transparent border-rust text-rust hover:bg-rust hover:text-cream">
+              <Link href="/shows" className="retro-button bg-transparent border-rust text-rust hover:bg-rust hover:text-midnight">
                 See Us Live
               </Link>
-              <a href="mailto:nathanjeichert@gmail.com" className="retro-button bg-transparent border-rust text-rust hover:bg-rust hover:text-cream flex items-center gap-2">
+              <a href="mailto:nathanjeichert@gmail.com" className="retro-button bg-transparent border-rust text-rust hover:bg-rust hover:text-midnight flex items-center gap-2">
                 <Mail size={16} />
                 Contact Us
+              </a>
+              <a href="https://www.youtube.com/channel/UCOpZMRlcndhoCcN1knIHIHA" target="_blank" rel="noopener noreferrer" className="retro-button bg-transparent border-rust text-rust hover:bg-rust hover:text-midnight flex items-center gap-2">
+                <Youtube size={16} />
+                YouTube
+              </a>
+              <a href="https://www.instagram.com/northerndisconnection" target="_blank" rel="noopener noreferrer" className="retro-button bg-transparent border-rust text-rust hover:bg-rust hover:text-midnight flex items-center gap-2">
+                <Instagram size={16} />
+                Instagram
               </a>
             </div>
           </motion.div>
@@ -82,7 +90,7 @@ export default function Page() {
                 Evan Pellkofer (guitar) and Nathan Eichert (keys) have been playing music together since elementary school. After a decade-plus, and with a little help from a rotating cast of talented friends, the duo is bringing their blend of blues, folk, jazz, and psychedelic rock to audiences around the San Francisco Bay Area.
               </p>
               <p>
-                Two Against Nature's diverse set lists feature a blend of original songs and their take on the music that formed the soundtrack of their childhood, such as the Grateful Dead, Crosby, Stills, Nash and Young, and Steely Dan.
+                Northern Disconnection's diverse set lists feature a blend of original songs and their take on the music that formed the soundtrack of their childhood, such as the Grateful Dead, Crosby, Stills, Nash and Young, and Steely Dan.
               </p>
             </div>
           </motion.div>

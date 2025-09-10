@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Instagram, Facebook, Youtube, Mail } from 'lucide-react'
+import { Instagram, Youtube, Mail } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -14,28 +14,25 @@ export default function Footer() {
             <div className="flex space-x-4">
               <motion.a
                 whileHover={{ scale: 1.1, rotate: 5 }}
-                href="#"
+                href="https://www.instagram.com/northerndisconnection"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-3 bg-rust/20 rounded-full text-cream hover:bg-rust/40 transition-colors"
               >
                 <Instagram size={20} />
               </motion.a>
               <motion.a
-                whileHover={{ scale: 1.1, rotate: -5 }}
-                href="#"
-                className="p-3 bg-rust/20 rounded-full text-cream hover:bg-rust/40 transition-colors"
-              >
-                <Facebook size={20} />
-              </motion.a>
-              <motion.a
                 whileHover={{ scale: 1.1, rotate: 5 }}
-                href="#"
+                href="https://www.youtube.com/channel/UCOpZMRlcndhoCcN1knIHIHA"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-3 bg-rust/20 rounded-full text-cream hover:bg-rust/40 transition-colors"
               >
                 <Youtube size={20} />
               </motion.a>
               <motion.a
                 whileHover={{ scale: 1.1, rotate: -5 }}
-                href="#"
+                href="mailto:booking@northerndisconnection.com"
                 className="p-3 bg-rust/20 rounded-full text-cream hover:bg-rust/40 transition-colors"
               >
                 <Mail size={20} />
@@ -58,15 +55,15 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold text-gold mb-4">Booking & Press</h3>
             <p className="text-sand mb-2">For booking inquiries:</p>
-            <a href="mailto:booking@twoagainstnature.com" className="text-rust hover:text-gold transition-colors">
-              booking@twoagainstnature.com
+            <a href="mailto:booking@northerndisconnection.com" className="text-rust hover:text-gold transition-colors">
+              booking@northerndisconnection.com
             </a>
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t border-rust/30 text-center">
           <p className="text-sand/70">
-            © {new Date().getFullYear()} Two Against Nature. All rights reserved.
+            © {new Date().getFullYear()} Northern Disconnection. All rights reserved.
           </p>
           <p className="text-sand/50 text-sm mt-2">
             Crafted with love in Sonoma County, CA
