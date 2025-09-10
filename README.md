@@ -1,6 +1,6 @@
-# Two Against Nature - Official Website
+# Northern Disconnection - Official Website
 
-This is the official website for Two Against Nature, a young americana duo from Sonoma County, CA. The site includes:
+This is the official website for Northern Disconnection, a young americana duo from Sonoma County, CA. The site includes:
 
 - Band information and story
 - Upcoming shows calendar
@@ -31,7 +31,7 @@ Listen to original tracks with a custom-built audio player featuring:
 
 ## Demo
 
-Visit the live site: [Two Against Nature](https://your-vercel-url.vercel.app)
+Visit the live site: [Northern Disconnection](https://your-vercel-url.vercel.app)
 
 ## Development
 
@@ -97,4 +97,4 @@ npm run build
 
 ## License
 
-© 2024 Two Against Nature. All rights reserved.
+© 2024 Northern Disconnection. All rights reserved.

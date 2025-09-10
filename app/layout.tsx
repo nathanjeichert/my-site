@@ -10,23 +10,23 @@ import { baseUrl } from './sitemap'
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: 'Two Against Nature',
-    template: '%s | Two Against Nature',
+    default: 'Northern Disconnection',
+    template: '%s | Northern Disconnection',
   },
-  description: 'Two Against Nature - A young americana duo from Sonoma County, CA',
+  description: 'Northern Disconnection - A young americana duo from Sonoma County, CA',
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/logo_notext_onblue.png',
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/northern-disconnection-logo.svg',
   },
   openGraph: {
-    title: 'Two Against Nature',
-    description: 'Two Against Nature - A young americana duo from Sonoma County, CA',
+    title: 'Northern Disconnection',
+    description: 'Northern Disconnection - A young americana duo from Sonoma County, CA',
     url: baseUrl,
-    siteName: 'Two Against Nature',
+    siteName: 'Northern Disconnection',
     locale: 'en_US',
     type: 'website',
-    images: ['/logo_notext_onblue.png'],
+    images: ['/northern-disconnection-logo.svg'],
   },
   robots: {
     index: true,
@@ -52,7 +52,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={cx(
-        'text-cream bg-midnight',
+        'text-rust bg-midnight',
         GeistSans.variable,
         GeistMono.variable
       )}

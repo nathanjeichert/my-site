@@ -3,7 +3,7 @@ import ShowsClient from './shows-client'
 
 export const metadata = {
   title: 'Shows',
-  description: 'Upcoming concerts and events for Two Against Nature.',
+  description: 'Upcoming concerts and events for Northern Disconnection.',
 }
 
 export default function ShowsPage() {
