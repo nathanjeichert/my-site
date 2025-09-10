@@ -25,7 +25,7 @@ export function Navbar() {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-rust/30" style={{ backgroundColor: '#db7b31' }}>
+    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-rust/30" style={{ backgroundColor: '#355E3B' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -36,15 +36,15 @@ export function Navbar() {
               className="w-12 h-12 rounded-full overflow-hidden"
             >
               <Image
-                src="/logo_notext_onblue.png"
-                alt="Two Against Nature Logo"
+                src="/northern-disconnection-logo.svg"
+                alt="Northern Disconnection Logo"
                 width={48}
                 height={48}
                 className="w-full h-full object-cover"
               />
             </motion.div>
             <div>
-              <h1 className="text-black font-bold text-lg leading-tight">Two Against Nature Band</h1>
+              <h1 className="text-rust font-bold text-lg leading-tight">Northern Disconnection</h1>
             </div>
           </Link>
 
@@ -62,12 +62,12 @@ export function Navbar() {
                     <Icon 
                       size={20} 
                       className={`transition-colors ${
-                        isActive ? 'text-cream' : 'text-black group-hover:text-rust'
+                        isActive ? 'text-cream' : 'text-rust group-hover:text-cream'
                       }`}
                     />
                     <span 
                       className={`hidden sm:inline-block text-sm font-medium uppercase tracking-wider transition-colors ${
-                        isActive ? 'text-cream' : 'text-black group-hover:text-rust'
+                        isActive ? 'text-cream' : 'text-rust group-hover:text-cream'
                       }`}
                     >
                       {name}

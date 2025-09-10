@@ -1,8 +1,8 @@
 {
   "general": {
-    "siteTitle": "Two Against Nature",
+    "siteTitle": "Northern Disconnection",
     "tagline": "A young americana duo from Sonoma County, CA",
-    "description": "Two Against Nature - A young americana duo from Sonoma County, CA"
+    "description": "Northern Disconnection - A young americana duo from Sonoma County, CA"
   },
   "navigation": {
     "items": [
@@ -13,11 +13,10 @@
     ]
   },
   "footer": {
-    "copyright": "© 2024 Two Against Nature. All rights reserved.",
+    "copyright": "© 2024 Northern Disconnection. All rights reserved.",
     "socialLinks": [
-      { "name": "Instagram", "url": "#" },
-      { "name": "Spotify", "url": "#" },
-      { "name": "Bandcamp", "url": "#" }
+      { "name": "Instagram", "url": "https://www.instagram.com/northerndisconnection" },
+      { "name": "YouTube", "url": "https://www.youtube.com/channel/UCOpZMRlcndhoCcN1knIHIHA" }
     ]
   }
 }
