@@ -79,7 +79,7 @@ const buttonMotion = {
 
 export default function Page() {
   return (
-    <div className="min-h-screen overflow-hidden bg-midnight pt-20 text-cream">
+    <div className="min-h-screen overflow-hidden bg-\[#355E3B\] pt-20 text-cream">
       <section className="relative flex min-h-[calc(100vh-5rem)] w-full flex-col items-center justify-center px-4">
         <motion.div
           initial={{ opacity: 0 }}
