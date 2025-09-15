@@ -56,8 +56,10 @@ export default function ShowsClient({ content }: ShowsPageProps) {
                   {show.soldOut ? (
                     <span className="text-rust font-bold uppercase">Sold Out</span>
                   ) : show.hasTickets ? (
-                    <a 
-                      href="#"
+                    <a
+                      href={show.ticketsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center text-cream hover:text-rust transition-colors group"
                     >
                       <Ticket size={20} className="mr-2" />
