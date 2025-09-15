@@ -28,10 +28,9 @@ export default function AboutPage() {
     <div className="min-h-screen pt-32 pb-24">
       <div className="max-w-6xl mx-auto px-4 space-y-20">
         <header className="text-center space-y-4">
-          <p className="uppercase tracking-[0.3em] text-gold text-xs">Our Story</p>
           <h1 className="text-4xl sm:text-5xl font-bold text-cream">About The Band</h1>
           <p className="text-lg text-sand max-w-3xl mx-auto leading-relaxed">
-            Meet the lifelong friends behind Northern Disconnection and discover the roots of their warm, improvisational spin on Americana, blues, and rock.
+            Meet the lifelong friends behind Northern Disconnection.
           </p>
         </header>
 

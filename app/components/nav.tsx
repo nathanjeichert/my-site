@@ -40,7 +40,7 @@ export function Navbar() {
               className="w-12 h-12 rounded-full overflow-hidden"
             >
               <Image
-                src="/northern-disconnection-logo.svg"
+                src="/logonotext.svg"
                 alt="Northern Disconnection Logo"
                 width={48}
                 height={48}

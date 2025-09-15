@@ -2,85 +2,155 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Music, Calendar, ChevronRight, Mail, Youtube, Instagram } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+import { Music, Calendar, Mail, Youtube, Instagram } from 'lucide-react'
 import Image from 'next/image'
+
+type ButtonItem = {
+  href: string
+  label: string
+  type: 'internal' | 'external'
+  variant: 'primary' | 'outline'
+  icon?: LucideIcon
+  target?: string
+  rel?: string
+}
+
+const buttons: ButtonItem[] = [
+  {
+    href: '/music',
+    label: 'Listen Now',
+    type: 'internal',
+    variant: 'primary',
+    icon: Music,
+  },
+  {
+    href: '/shows',
+    label: 'See Us Live',
+    type: 'internal',
+    variant: 'outline',
+    icon: Calendar,
+  },
+  {
+    href: 'mailto:nathanjeichert@gmail.com',
+    label: 'Contact Us',
+    type: 'external',
+    variant: 'outline',
+    icon: Mail,
+  },
+  {
+    href: 'https://www.youtube.com/channel/UCOpZMRlcndhoCcN1knIHIHA',
+    label: 'YouTube',
+    type: 'external',
+    variant: 'outline',
+    icon: Youtube,
+    target: '_blank',
+    rel: 'noopener noreferrer',
+  },
+  {
+    href: 'https://www.instagram.com/northerndisconnection',
+    label: 'Instagram',
+    type: 'external',
+    variant: 'outline',
+    icon: Instagram,
+    target: '_blank',
+    rel: 'noopener noreferrer',
+  },
+]
+
+const buttonGroup = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.85,
+    },
+  },
+}
+
+const buttonMotion = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: 'easeOut' },
+  },
+}
 
 export default function Page() {
   return (
-    <div className="min-h-screen pt-20">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+    <div className="min-h-screen overflow-hidden bg-midnight pt-20 text-cream">
+      <section className="relative flex min-h-[calc(100vh-5rem)] w-full flex-col items-center justify-center px-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.1, delay: 0.2 }}
+          className="pointer-events-none absolute inset-x-[-20%] top-6 h-[420px] rounded-full bg-[radial-gradient(circle_at_top,_rgba(244,196,48,0.15),_rgba(215,180,138,0.1)_45%,_transparent_75%)] blur-3xl"
+        />
 
-        {/* Hero Content */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="relative z-10 text-center px-4"
+          transition={{ duration: 0.9, ease: 'easeOut' }}
+          className="relative z-10 flex w-full max-w-4xl flex-col items-center gap-10 text-center"
         >
-          <div className="w-full max-w-4xl mb-8">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92, rotate: -4 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 0.9, ease: 'easeOut' }}
+            className="w-full max-w-3xl"
+          >
             <Image
-              src="/northern-disconnection-logo.svg"
+              src="/logowithtext.svg"
               alt="Northern Disconnection"
-              width={800}
-              height={800}
-              className="w-full h-auto"
+              width={900}
+              height={300}
+              className="h-auto w-full drop-shadow-[0_20px_60px_rgba(244,196,48,0.15)]"
               priority
             />
-          </div>
-          
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="space-y-4"
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+            className="max-w-2xl text-lg leading-relaxed text-sand sm:text-xl"
           >
-            <p className="text-xl text-sand max-w-2xl mx-auto leading-relaxed font-bold">
-              Northern Disconnection is a Bay Area band bringing familiar sounds in new directions and to new audiences.
-            </p>
-            
-            <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <Link href="/music" className="retro-button">
-                Listen Now
-              </Link>
-              <Link href="/shows" className="retro-button bg-transparent border-rust text-rust hover:bg-rust hover:text-midnight">
-                See Us Live
-              </Link>
-              <a href="mailto:nathanjeichert@gmail.com" className="retro-button bg-transparent border-rust text-rust hover:bg-rust hover:text-midnight flex items-center gap-2">
-                <Mail size={16} />
-                Contact Us
-              </a>
-              <a href="https://www.youtube.com/channel/UCOpZMRlcndhoCcN1knIHIHA" target="_blank" rel="noopener noreferrer" className="retro-button bg-transparent border-rust text-rust hover:bg-rust hover:text-midnight flex items-center gap-2">
-                <Youtube size={16} />
-                YouTube
-              </a>
-              <a href="https://www.instagram.com/northerndisconnection" target="_blank" rel="noopener noreferrer" className="retro-button bg-transparent border-rust text-rust hover:bg-rust hover:text-midnight flex items-center gap-2">
-                <Instagram size={16} />
-                Instagram
-              </a>
-            </div>
+            Northern Disconnection is a Bay Area band bringing familiar sounds in new directions and to new audiences.
+          </motion.p>
+
+          <motion.div
+            variants={buttonGroup}
+            initial="hidden"
+            animate="visible"
+            className="flex w-full flex-wrap items-center justify-center gap-3 sm:gap-4"
+          >
+            {buttons.map((button) => {
+              const Icon = button.icon
+              const classes =
+                button.variant === 'primary'
+                  ? 'retro-button flex items-center justify-center gap-2 px-8 py-3 text-base sm:text-lg'
+                  : 'retro-button flex items-center justify-center gap-2 px-8 py-3 text-base sm:text-lg border-rust bg-transparent text-rust hover:bg-rust hover:text-midnight'
+
+              return (
+                <motion.div key={`${button.href}-${button.label}`} variants={buttonMotion}>
+                  {button.type === 'internal' ? (
+                    <Link href={button.href} className={classes}>
+                      {Icon && <Icon size={18} />}
+                      {button.label}
+                    </Link>
+                  ) : (
+                    <a href={button.href} className={classes} target={button.target} rel={button.rel}>
+                      {Icon && <Icon size={18} />}
+                      {button.label}
+                    </a>
+                  )}
+                </motion.div>
+              )
+            })}
           </motion.div>
         </motion.div>
-
       </section>
-
-
-      <section className="py-20 px-4 bg-rust/10">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <h3 className="text-3xl font-bold text-cream">About The Band</h3>
-          <p className="text-sand leading-relaxed">
-            Evan Pellkofer and Nathan Eichert have been friends and bandmates for more than a decade. Get the full story behind Northern Disconnection's warm, roots-driven sound.
-          </p>
-          <Link
-            href="/about"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-rust text-rust hover:bg-rust hover:text-midnight transition-colors"
-          >
-            Learn more
-            <ChevronRight size={18} />
-          </Link>
-        </div>
-      </section>
-
     </div>
   )
 }
