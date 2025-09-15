@@ -53,7 +53,7 @@ export default function AboutPage() {
                   }`}
                 ></div>
                 <div
-                  className={`relative aspect-[3/4] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-cream/10 ${
+                  className={`relative aspect-[3/4] overflow-hidden rounded-3xl shadow-2xl ring-2 ring-cream/10 ${
                     isEven ? 'md:translate-y-6' : 'md:-translate-y-6'
                   }`}
                 >
