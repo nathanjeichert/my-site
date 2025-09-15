@@ -62,8 +62,8 @@ const buttonGroup = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.85,
+      staggerChildren: 0.12,
+      delayChildren: 1.1,
     },
   },
 }
@@ -73,7 +73,7 @@ const buttonMotion = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, ease: 'easeOut' },
+    transition: { duration: 0.6, ease: 'easeOut' },
   },
 }
 
@@ -84,20 +84,20 @@ export default function Page() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.1, delay: 0.2 }}
+          transition={{ duration: 1.5, delay: 0.35 }}
           className="pointer-events-none absolute inset-x-[-20%] top-6 h-[420px] rounded-full bg-[radial-gradient(circle_at_top,_rgba(244,196,48,0.15),_rgba(215,180,138,0.1)_45%,_transparent_75%)] blur-3xl"
         />
 
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
+          initial={{ opacity: 0, y: 36 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: 'easeOut' }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
           className="relative z-10 flex w-full max-w-4xl flex-col items-center gap-10 text-center"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, rotate: -4 }}
+            initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 0.9, ease: 'easeOut' }}
+            transition={{ duration: 1.25, ease: 'easeOut' }}
             className="w-full max-w-3xl"
           >
             <Image
@@ -111,9 +111,9 @@ export default function Page() {
           </motion.div>
 
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
+            transition={{ duration: 0.9, delay: 1.0 }}
             className="max-w-2xl text-lg leading-relaxed text-sand sm:text-xl"
           >
             Northern Disconnection is a Bay Area band bringing familiar sounds in new directions and to new audiences.
