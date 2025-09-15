@@ -101,7 +101,7 @@ export default function Page() {
             className="w-full max-w-3xl"
           >
             <Image
-              src="/logowithtext.svg"
+              src="/logowithtext.png"
               alt="Northern Disconnection"
               width={900}
               height={300}
