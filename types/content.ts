@@ -21,6 +21,7 @@ export interface Show {
   location: string;
   description: string;
   hasTickets: boolean;
+  ticketsUrl?: string;
   soldOut: boolean;
 }
 

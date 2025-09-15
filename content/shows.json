@@ -4,7 +4,7 @@
   },
   "upcomingShows": [
     {
-      "date": "July 19, 2025",
+      "date": "September 20, 2025",
       "time": "1:00 PM",
       "venue": "The Blue Barn",
       "location": "Novato, CA",
@@ -13,12 +13,13 @@
       "soldOut": false
     },
     {
-      "date": "September 20, 2025",
-      "time": "1:00 PM",
-      "venue": "The Blue Barn",
-      "location": "Novato, CA",
+      "date": "September 27, 2025",
+      "time": "3:00 PM",
+      "venue": "G-Fest",
+      "location": "Petaluma, CA",
       "description": "",
-      "hasTickets": false,
+      "hasTickets": true,
+      "ticketsUrl": "https://www.blikeg.org",
       "soldOut": false
     }
   ]

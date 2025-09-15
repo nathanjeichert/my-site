@@ -15,8 +15,8 @@ export const metadata: Metadata = {
   },
   description: 'Northern Disconnection - A young americana duo from Sonoma County, CA',
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
     apple: '/northern-disconnection-logo.svg',
   },
   openGraph: {
