@@ -37,14 +37,14 @@ export function Navbar() {
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              className="w-12 h-12 rounded-full overflow-hidden"
+              className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center"
             >
               <Image
                 src="/logonotext.svg"
                 alt="Northern Disconnection Logo"
-                width={48}
-                height={48}
-                className="w-full h-full object-cover"
+                width={40}
+                height={40}
+                className="w-10 h-10 object-contain"
               />
             </motion.div>
             <div>
