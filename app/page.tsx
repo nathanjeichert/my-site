@@ -159,7 +159,7 @@ export default function Page() {
     )
   }
 
-  const baseButtonClasses = 'retro-button flex items-center justify-center gap-2 px-8 py-3 text-base sm:text-lg min-w-[200px]'
+  const baseButtonClasses = 'retro-button flex h-12 w-48 sm:w-56 items-center justify-center gap-2 px-6 text-base sm:text-lg'
 
   return (
     <div className="min-h-screen overflow-hidden bg-[#355E3B] pt-20 text-cream">
