@@ -70,6 +70,15 @@ export default function AboutPage() {
             </section>
           )
         })}
+
+        <section className="text-center">
+          <a
+            href="mailto:nathanjeichert@gmail.com"
+            className="retro-button inline-flex h-12 w-64 items-center justify-center gap-2 px-6 text-base sm:text-lg whitespace-nowrap border-rust bg-transparent text-rust hover:bg-rust hover:text-midnight"
+          >
+            Contact Us
+          </a>
+        </section>
       </div>
     </div>
   )
