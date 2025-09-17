@@ -90,7 +90,7 @@ export function Navbar() {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-3" aria-hidden="true" />
 
       <nav
-        className={`transform-gpu ${navVisibilityClasses} w-full border-b border-rust/30 bg-[#355E3B]/95 backdrop-blur-md transition-all duration-300 ease-out`}
+        className={`transform-gpu ${navVisibilityClasses} w-full border-b border-rust/30 bg-[#355E3B]/95 backdrop-blur-md transition-all duration-500 ease-out`}
         style={{ boxShadow: '0 12px 32px rgba(0, 0, 0, 0.25)' }}
       >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">

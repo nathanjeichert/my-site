@@ -216,16 +216,6 @@ export default function Page() {
                 </h2>
               </div>
               {renderVideoEmbed()}
-              <div className="text-left text-sm text-rust/70 sm:text-center">
-                <a
-                  href={latestVideo?.url ?? YOUTUBE_CHANNEL_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-rust hover:text-cream"
-                >
-                  Watch on YouTube
-                </a>
-              </div>
             </div>
           </motion.div>
 
@@ -264,3 +254,4 @@ export default function Page() {
     </div>
   )
 }
+
