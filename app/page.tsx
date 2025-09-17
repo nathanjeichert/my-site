@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import type { LucideIcon } from 'lucide-react'
@@ -15,6 +16,16 @@ type ButtonItem = {
   target?: string
   rel?: string
 }
+
+type LatestVideo = {
+  videoId: string
+  title: string
+  publishedAt: string | null
+  thumbnail?: string | null
+  url: string
+}
+
+const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/channel/UCOpZMRlcndhoCcN1knIHIHA'
 
 const buttons: ButtonItem[] = [
   {
@@ -39,7 +50,7 @@ const buttons: ButtonItem[] = [
     icon: Mail,
   },
   {
-    href: 'https://www.youtube.com/channel/UCOpZMRlcndhoCcN1knIHIHA',
+    href: YOUTUBE_CHANNEL_URL,
     label: 'YouTube',
     type: 'external',
     variant: 'outline',
@@ -78,8 +89,80 @@ const buttonMotion = {
 }
 
 export default function Page() {
+  const [latestVideo, setLatestVideo] = useState<LatestVideo | null>(null)
+  const [videoError, setVideoError] = useState<string | null>(null)
+  const [isLoadingVideo, setIsLoadingVideo] = useState(true)
+
+  useEffect(() => {
+    let isMounted = true
+
+    const loadLatestVideo = async () => {
+      try {
+        const response = await fetch('/api/youtube/latest')
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch latest video (status ${response.status})`)
+        }
+
+        const data: LatestVideo = await response.json()
+
+        if (isMounted) {
+          setLatestVideo(data)
+          setVideoError(null)
+        }
+      } catch (error) {
+        console.error('Error fetching latest YouTube video', error)
+        if (isMounted) {
+          setVideoError('Unable to load the latest video right now.')
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoadingVideo(false)
+        }
+      }
+    }
+
+    loadLatestVideo()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  const renderVideoEmbed = () => {
+    if (isLoadingVideo) {
+      return (
+        <div className="flex h-full w-full items-center justify-center">
+          <div className="h-full w-full animate-pulse rounded-2xl bg-emerald-950/40" />
+        </div>
+      )
+    }
+
+    if (videoError || !latestVideo) {
+      return (
+        <div className="flex h-full items-center justify-center rounded-2xl border border-rust/40 bg-[#223b2a]/70 p-6 text-center text-sm text-rust/80">
+          {videoError ?? 'No recent video found. Check back soon!'}
+        </div>
+      )
+    }
+
+    return (
+      <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-rust/30 shadow-xl">
+        <iframe
+          src={`https://www.youtube.com/embed/${latestVideo.videoId}`}
+          title={latestVideo.title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          className="h-full w-full"
+        />
+      </div>
+    )
+  }
+
+  const baseButtonClasses = 'retro-button flex items-center justify-center gap-2 px-8 py-3 text-base sm:text-lg min-w-[200px]'
+
   return (
-    <div className="min-h-screen overflow-hidden bg-\[#355E3B\] pt-20 text-cream">
+    <div className="min-h-screen overflow-hidden bg-[#355E3B] pt-20 text-cream">
       <section className="relative flex min-h-[calc(100vh-5rem)] w-full flex-col items-center justify-center px-4">
         <motion.div
           initial={{ opacity: 0 }}
@@ -120,6 +203,33 @@ export default function Page() {
           </motion.p>
 
           <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.0, delay: 1.2 }}
+            className="w-full max-w-3xl"
+          >
+            <div className="flex flex-col gap-4 rounded-3xl border border-rust/30 bg-[#213828]/80 p-6 shadow-2xl shadow-midnight/40 backdrop-blur">
+              <div className="space-y-2 text-left sm:text-center">
+                <p className="text-xs font-semibold uppercase tracking-[0.35em] text-rust/80">Check out a recent show:</p>
+                <h2 className="text-xl font-semibold text-cream sm:text-2xl">
+                  {latestVideo?.title ?? (isLoadingVideo ? 'Loading latest video...' : 'We will share a new video soon!')}
+                </h2>
+              </div>
+              {renderVideoEmbed()}
+              <div className="text-left text-sm text-rust/70 sm:text-center">
+                <a
+                  href={latestVideo?.url ?? YOUTUBE_CHANNEL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-rust hover:text-cream"
+                >
+                  Watch on YouTube
+                </a>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
             variants={buttonGroup}
             initial="hidden"
             animate="visible"
@@ -129,8 +239,8 @@ export default function Page() {
               const Icon = button.icon
               const classes =
                 button.variant === 'primary'
-                  ? 'retro-button flex items-center justify-center gap-2 px-8 py-3 text-base sm:text-lg'
-                  : 'retro-button flex items-center justify-center gap-2 px-8 py-3 text-base sm:text-lg border-rust bg-transparent text-rust hover:bg-rust hover:text-midnight'
+                  ? baseButtonClasses
+                  : `${baseButtonClasses} border-rust bg-transparent text-rust hover:bg-rust hover:text-midnight`
 
               return (
                 <motion.div key={`${button.href}-${button.label}`} variants={buttonMotion}>
