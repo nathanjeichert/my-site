@@ -79,8 +79,7 @@ export default function ShowsClient({ content }: ShowsPageProps) {
             animate={{ opacity: 1 }}
             className="text-center py-20"
           >
-            <p className="text-2xl text-sand mb-4">No upcoming shows at this time.</p>
-            <p className="text-lg text-sand/70">Check back soon for updates!</p>
+            <p className="text-2xl text-sand">More dates coming soon!</p>
           </motion.div>
         )}
 
