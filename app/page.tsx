@@ -92,6 +92,9 @@ export default function Page() {
   const [latestVideo, setLatestVideo] = useState<LatestVideo | null>(null)
   const [videoError, setVideoError] = useState<string | null>(null)
   const [isLoadingVideo, setIsLoadingVideo] = useState(true)
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
     let isMounted = true
@@ -128,6 +131,32 @@ export default function Page() {
       isMounted = false
     }
   }, [])
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus('loading')
+    setMessage('')
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+
+      if (response.ok) {
+        setStatus('success')
+        setMessage('Thanks for subscribing!')
+        setEmail('')
+      } else {
+        setStatus('error')
+        setMessage('Something went wrong. Please try again.')
+      }
+    } catch (error) {
+      setStatus('error')
+      setMessage('Something went wrong. Please try again.')
+    }
+  }
 
   const renderVideoEmbed = () => {
     if (isLoadingVideo) {
@@ -248,6 +277,54 @@ export default function Page() {
                 </motion.div>
               )
             })}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.0, duration: 0.8 }}
+            className="mt-16 w-full max-w-2xl border-t border-rust/30 pt-12"
+          >
+            <div className="text-center">
+              <h2 className="mb-4 text-3xl font-bold text-cream vintage-shadow">
+                Get Show Alerts
+              </h2>
+              <p className="mb-6 text-sand">
+                Subscribe to be notified when we announce new shows
+              </p>
+
+              <form onSubmit={handleSubscribe} className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <div className="relative w-full max-w-md flex-1">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-sand" size={20} />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="your@email.com"
+                    required
+                    disabled={status === 'loading'}
+                    className="w-full rounded-lg border border-rust/30 bg-cream/5 py-3 pl-12 pr-4 text-cream placeholder-sand/50 transition-colors focus:border-rust focus:outline-none disabled:opacity-50"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={status === 'loading'}
+                  className="whitespace-nowrap rounded-lg border border-rust bg-rust/20 px-8 py-3 font-semibold text-cream transition-colors hover:bg-rust/30 disabled:opacity-50"
+                >
+                  {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
+                </button>
+              </form>
+
+              {message && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className={`mt-4 ${status === 'success' ? 'text-gold' : 'text-rust'}`}
+                >
+                  {message}
+                </motion.p>
+              )}
+            </div>
           </motion.div>
         </motion.div>
       </section>
