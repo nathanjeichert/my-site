@@ -1,7 +1,9 @@
-import { kv } from '@vercel/kv'
+import { createClient } from 'redis'
 import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
+  let client
+
   try {
     const { email } = await request.json()
 
@@ -12,14 +14,25 @@ export async function POST(request: Request) {
       )
     }
 
+    // Connect to Redis
+    client = createClient({
+      url: process.env.REDIS_URL
+    })
+    await client.connect()
+
     // Add email to set (automatically handles duplicates)
-    await kv.sadd('newsletter-subscribers', email.toLowerCase())
+    await client.sAdd('newsletter-subscribers', email.toLowerCase())
+
+    await client.disconnect()
 
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Subscription error:', error)
+    if (client) {
+      await client.disconnect().catch(() => {})
+    }
     return NextResponse.json(
-      { error: 'Failed to subscribe' },
+      { error: 'Failed to subscribe', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }
