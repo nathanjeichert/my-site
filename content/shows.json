@@ -11,6 +11,24 @@
       "description": "",
       "hasTickets": false,
       "soldOut": false
+    },
+    {
+      "date": "December 5th, 2025",
+      "time": "6-9 PM",
+      "venue": "McKay's Taphouse & Beer Garden",
+      "location": "Pleasanton, CA",
+      "description": "Epilepsy Foundation Fundraiser",
+      "hasTickets": false,
+      "soldOut": false
+    },
+    {
+      "date": "January 10th, 2026",
+      "time": "7-10 PM",
+      "venue": "Brisbane Inn Lodge",
+      "location": "Brisbane, CA",
+      "description": "Duo Show",
+      "hasTickets": false,
+      "soldOut": false
     }
   ]
 }
