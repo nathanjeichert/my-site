@@ -22,6 +22,15 @@
       "soldOut": false
     },
     {
+      "date": "December 31st, 2025",
+      "time": "9:30 PM - 1:30 AM",
+      "venue": "Joe's Bar",
+      "location": "Boulder Creek, CA",
+      "description": "",
+      "hasTickets": false,
+      "soldOut": false
+    },
+    {
       "date": "January 10th, 2026",
       "time": "7-10 PM",
       "venue": "Brisbane Inn Lodge",
