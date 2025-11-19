@@ -4,11 +4,11 @@
   },
   "upcomingShows": [
     {
-      "date": "October 27th, 2025",
-      "time": "7:00 PM",
-      "venue": "Big Easy",
+      "date": "November 28th, 2025",
+      "time": "6:00 PM",
+      "venue": "Aqus Cafe",
       "location": "Petaluma, CA",
-      "description": "",
+      "description": "With Mark Benanti and Mark Latimer",
       "hasTickets": false,
       "soldOut": false
     },
@@ -22,11 +22,11 @@
       "soldOut": false
     },
     {
-      "date": "December 31st, 2025",
-      "time": "9:30 PM - 1:30 AM",
-      "venue": "Joe's Bar",
-      "location": "Boulder Creek, CA",
-      "description": "",
+      "date": "December 12th, 2025",
+      "time": "9:00 PM",
+      "venue": "Gale's Central Club",
+      "location": "Petaluma, CA",
+      "description": "With Mark Benanti and Mark Latimer",
       "hasTickets": false,
       "soldOut": false
     },
