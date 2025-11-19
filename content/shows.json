@@ -4,6 +4,15 @@
   },
   "upcomingShows": [
     {
+      "date": "November 28th, 2025",
+      "time": "6:00 PM",
+      "venue": "Aqus Cafe",
+      "location": "Petaluma, CA",
+      "description": "With Mark Benanti and Mark Latimer",
+      "hasTickets": false,
+      "soldOut": false
+    },
+    {
       "date": "December 5th, 2025",
       "time": "6-9 PM",
       "venue": "McKay's Taphouse & Beer Garden",
@@ -16,15 +25,6 @@
       "date": "December 12th, 2025",
       "time": "9:00 PM",
       "venue": "Gale's Central Club",
-      "location": "Petaluma, CA",
-      "description": "With Mark Benanti and Mark Latimer",
-      "hasTickets": false,
-      "soldOut": false
-    },
-    {
-      "date": "November 28th, 2025",
-      "time": "6:00 PM",
-      "venue": "Aqus Cafe",
       "location": "Petaluma, CA",
       "description": "With Mark Benanti and Mark Latimer",
       "hasTickets": false,
