@@ -29,48 +29,27 @@ The site uses a custom color palette defined in `app/global.css:8-25`:
 - `--burgundy` (#800020) - Dark accent
 - `--sand` (#e8dcc6) - Muted text
 
-### Content Management
-- **Music**: Add MP3 files to `public/music/` and update the `tracks` array in `app/music/page.tsx:13-38`
-- **Shows**: Update the `upcomingShows` array in `app/shows/page.tsx:11-39`
-- All content is statically defined in the respective page components
-
-### Animation System
-The site heavily uses Framer Motion for:
-- Page entrance animations
-- Interactive hover effects
-- Custom audio player animations (spinning record effect)
-- Sequential item reveals with staggered delays
-
 ### Layout Structure
 - Global layout in `app/layout.tsx` includes navigation, footer, analytics, and grain overlay effect
 - Navigation component handles routing between pages
 - Footer component provides social links and copyright
 - All pages use consistent padding and responsive design patterns
 
-### Audio Player
-The music page features a custom-built audio player with:
-- Visual record spinning animation synced to play state
-- Track switching functionality
-- Progress bar simulation (visual only, not connected to actual audio)
-- Track listing with click-to-select functionality
+## Content
 
-## Content Management System
+The only dynamic content file is `content/shows.json`, loaded at build time
+by `lib/content.ts` (`getShowsContent()`) and rendered by
+`app/shows/shows-client.tsx`. Edit the JSON (locally or via GitHub's web
+UI) and Vercel will redeploy automatically.
 
-### JSON-Based Content Structure
-All site content is managed through JSON files in the `/content/` directory:
-- `content/music.json` - Track listings and music page content
-- `content/shows.json` - Show information and venue details
-- `content/about.json` - Band member profiles, philosophy, timeline
-- `content/site.json` - Navigation, footer, and general site settings
+Other page content is written inline in its respective page component:
+- `app/page.tsx` — home / hero
+- `app/about/page.tsx` — about
+- `app/music/page.tsx` — the Archive.org "Live at G-Fest 2025" embed
 
-### Content Editing Workflow
-1. **Direct Editing**: Modify JSON files in GitHub repository (or locally)
-2. **Auto-Deploy**: Changes trigger automatic Vercel rebuilds
-3. **Version Control**: All changes tracked in Git history
-
-### Content Loading
-- Content types: `types/content.ts` - TypeScript interfaces for all content
-- Content loader: `lib/content.ts` - server-side content loading utilities
+The newsletter subscribe form is a shared component at
+`app/components/subscribe-form.tsx`, used by both the home page and the
+shows page. It POSTs to `/api/subscribe`, which stores emails in Redis.
 
 ### Architecture Notes
 - Server components load content at build time for optimal performance
