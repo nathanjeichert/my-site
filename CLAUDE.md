@@ -63,28 +63,14 @@ All site content is managed through JSON files in the `/content/` directory:
 - `content/about.json` - Band member profiles, philosophy, timeline
 - `content/site.json` - Navigation, footer, and general site settings
 
-### Tina CMS Integration
-- Visual editing interface available at `/admin` (requires Tina.io account)
-- Form-based content editing with real-time preview
-- Automatic GitHub commits and Vercel deployments
-- TypeScript types ensure content structure integrity
-
 ### Content Editing Workflow
-1. **Visual Editor**: Edit at `/admin` with user-friendly forms
-2. **Direct Editing**: Modify JSON files in GitHub repository
-3. **Auto-Deploy**: Changes trigger automatic Vercel rebuilds
-4. **Version Control**: All changes tracked in Git history
+1. **Direct Editing**: Modify JSON files in GitHub repository (or locally)
+2. **Auto-Deploy**: Changes trigger automatic Vercel rebuilds
+3. **Version Control**: All changes tracked in Git history
 
-### CMS Configuration
-- Tina config: `tina/config.ts` - defines content schemas and editing interface
+### Content Loading
 - Content types: `types/content.ts` - TypeScript interfaces for all content
 - Content loader: `lib/content.ts` - server-side content loading utilities
-
-### Environment Variables Required
-```
-NEXT_PUBLIC_TINA_CLIENT_ID=your_client_id
-TINA_TOKEN=your_token
-```
 
 ### Architecture Notes
 - Server components load content at build time for optimal performance
