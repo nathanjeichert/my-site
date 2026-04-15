@@ -109,7 +109,7 @@ export default function ShowsClient({ content }: ShowsPageProps) {
             animate={{ opacity: 1 }}
             className="text-center py-20"
           >
-            <p className="text-2xl text-sand">More dates coming soon!</p>
+            <p className="text-2xl text-sand">Check back soon for more shows!</p>
           </motion.div>
         )}
 

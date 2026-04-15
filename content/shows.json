@@ -2,15 +2,5 @@
   "pageContent": {
     "title": "Upcoming Shows"
   },
-  "upcomingShows": [
-    {
-      "date": "January 10th, 2026",
-      "time": "7-10 PM",
-      "venue": "Brisbane Inn Lodge",
-      "location": "Brisbane, CA",
-      "description": "Duo Show",
-      "hasTickets": false,
-      "soldOut": false
-    }
-  ]
+  "upcomingShows": []
 }
