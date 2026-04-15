@@ -2,5 +2,33 @@
   "pageContent": {
     "title": "Upcoming Shows"
   },
-  "upcomingShows": []
+  "upcomingShows": [
+    {
+      "date": "June 20th, 2026",
+      "time": "",
+      "venue": "The Forestville Club",
+      "location": "Forestville, CA",
+      "description": "",
+      "hasTickets": false,
+      "soldOut": false
+    },
+    {
+      "date": "August 23rd, 2026",
+      "time": "",
+      "venue": "McKay's Taphouse & Beer Garden",
+      "location": "Pleasanton, CA",
+      "description": "NorCal Epilepsy Foundation Fundraiser",
+      "hasTickets": false,
+      "soldOut": false
+    },
+    {
+      "date": "September 19th, 2026",
+      "time": "",
+      "venue": "G-Fest 2026",
+      "location": "Petaluma, CA",
+      "description": "",
+      "hasTickets": false,
+      "soldOut": false
+    }
+  ]
 }

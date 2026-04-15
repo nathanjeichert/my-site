@@ -67,10 +67,12 @@ export default function ShowsClient({ content }: ShowsPageProps) {
                     <Calendar size={20} className="mr-2" />
                     <span className="font-bold">{show.date}</span>
                   </div>
-                  <div className="flex items-center text-sand">
-                    <Clock size={20} className="mr-2" />
-                    <span>{show.time}</span>
-                  </div>
+                  {show.time && (
+                    <div className="flex items-center text-sand">
+                      <Clock size={20} className="mr-2" />
+                      <span>{show.time}</span>
+                    </div>
+                  )}
                 </div>
 
                 <div>
@@ -82,7 +84,9 @@ export default function ShowsClient({ content }: ShowsPageProps) {
                 </div>
 
                 <div className="flex flex-col justify-between">
-                  <p className="text-sand text-sm mb-4 md:mb-0">{show.description}</p>
+                  {show.description && (
+                    <p className="text-sand text-sm mb-4 md:mb-0">{show.description}</p>
+                  )}
                   {show.soldOut ? (
                     <span className="text-rust font-bold uppercase">Sold Out</span>
                   ) : show.hasTickets ? (
