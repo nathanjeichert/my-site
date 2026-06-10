@@ -112,12 +112,6 @@ body {
   letter-spacing: 0.005em;
 }
 
-/* Band-name wordmark (nav, footer) — clean bold sans */
-.font-wordmark {
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  font-weight: 700;
-}
-
 /* Small-caps section label */
 .eyebrow {
   font-family: var(--font-body), Georgia, serif;

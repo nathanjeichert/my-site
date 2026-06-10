@@ -109,7 +109,7 @@ export function Navbar() {
                 className="logo-cream h-12 w-auto object-contain"
               />
             </motion.div>
-            <span className="font-wordmark text-lg leading-tight text-cream transition-colors group-hover:text-gold sm:text-xl">
+            <span className="font-display text-lg leading-tight text-cream transition-colors group-hover:text-gold sm:text-xl">
               Northern Disconnection
             </span>
           </Link>

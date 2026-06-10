@@ -1,7 +1,6 @@
 import './global.css'
 import type { Metadata } from 'next'
 import { Fraunces, Alegreya_Sans } from 'next/font/google'
-import { GeistSans } from 'geist/font/sans'
 import { Navbar } from './components/nav'
 import Footer from './components/footer'
 import { Analytics } from '@vercel/analytics/react'
@@ -67,7 +66,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${fraunces.variable} ${alegreyaSans.variable} ${GeistSans.variable}`}
+      className={`${fraunces.variable} ${alegreyaSans.variable}`}
     >
       <body className="antialiased min-h-screen">
         <div className="grain-overlay"></div>
