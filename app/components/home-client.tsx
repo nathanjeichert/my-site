@@ -116,7 +116,7 @@ export default function HomeClient({ nextShow }: HomeClientProps) {
             className="w-full max-w-lg"
           >
             <Image
-              src="/logowithtext.png"
+              src="/logo-hero.png"
               alt="Northern Disconnection"
               width={900}
               height={506}
