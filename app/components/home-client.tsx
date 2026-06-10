@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Music, Calendar, Mail, ChevronDown, MapPin } from 'lucide-react'
+import { Music, Calendar, Mail, MapPin } from 'lucide-react'
 import type { Show } from '@/types/content'
 import { getWeekday } from '@/lib/dates'
 import SubscribeForm from './subscribe-form'
@@ -93,26 +93,27 @@ export default function HomeClient({ nextShow }: HomeClientProps) {
   return (
     <div className="min-h-screen text-cream">
       {/* ============ HERO — live at G-Fest ============ */}
-      <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 pb-24 pt-28">
+      <section className="relative flex min-h-[100svh] flex-col items-center justify-end overflow-hidden px-4 pb-14 pt-28">
+        {/* zoomed and bottom-anchored so the band's faces sit above the text block */}
         <Image
           src="/band-photos/gfest-live.jpg"
           alt="Northern Disconnection performing live on the riverfront stage at G-Fest"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="origin-bottom scale-[1.2] object-cover object-center"
         />
-        {/* dusk wash so the cream logo and type read over the daylight photo */}
-        <div className="absolute inset-0 bg-[#0c2318]/45" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0c2318]/85 via-transparent to-[#0c2318]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_rgba(12,35,24,0.55)_100%)]" />
+        {/* dusk wash so the type reads over the daylight photo */}
+        <div className="absolute inset-0 bg-[#0c2318]/35" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0c2318]/60 via-transparent to-[#0c2318]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_rgba(12,35,24,0.5)_100%)]" />
 
-        <div className="relative z-10 flex w-full max-w-4xl flex-col items-center gap-8 text-center">
+        <div className="relative z-10 flex w-full max-w-4xl flex-col items-center gap-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, ease: 'easeOut' }}
-            className="w-full max-w-2xl"
+            className="w-full max-w-lg"
           >
             <Image
               src="/logowithtext.png"
@@ -120,7 +121,7 @@ export default function HomeClient({ nextShow }: HomeClientProps) {
               width={900}
               height={506}
               priority
-              className="logo-cream h-auto w-full"
+              className="logo-ink h-auto w-full"
             />
           </motion.div>
 
@@ -130,7 +131,7 @@ export default function HomeClient({ nextShow }: HomeClientProps) {
             transition={{ duration: 0.9, delay: 0.5 }}
             className="max-w-xl text-lg italic leading-relaxed text-sand sm:text-xl"
           >
-            Psychedelic americana from Sonoma County — familiar sounds, new directions.
+            Psychedelic americana from Sonoma County
           </motion.p>
 
           {nextShow && (
@@ -179,18 +180,6 @@ export default function HomeClient({ nextShow }: HomeClientProps) {
             </a>
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8, duration: 1 }}
-          className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 text-rust"
-          aria-hidden="true"
-        >
-          <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}>
-            <ChevronDown size={26} />
-          </motion.div>
-        </motion.div>
       </section>
 
       {/* ============ LATEST VIDEO ============ */}
