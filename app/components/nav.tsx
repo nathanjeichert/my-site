@@ -90,46 +90,45 @@ export function Navbar() {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-3" aria-hidden="true" />
 
       <nav
-        className={`transform-gpu ${navVisibilityClasses} w-full border-b border-rust/30 bg-[#355E3B]/95 backdrop-blur-md transition-all duration-500 ease-out`}
-        style={{ boxShadow: '0 12px 32px rgba(0, 0, 0, 0.25)' }}
+        className={`transform-gpu ${navVisibilityClasses} w-full border-b border-rust/40 bg-pine/90 backdrop-blur-md transition-all duration-500 ease-out`}
+        style={{ boxShadow: '0 12px 32px rgba(0, 0, 0, 0.35)' }}
       >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="group flex items-center space-x-3">
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full"
+              className="flex h-12 w-9 items-center justify-center"
             >
               <Image
                 src="/logonotext.svg"
-                alt="Northern Disconnection Logo"
-                width={40}
-                height={40}
-                className="h-10 w-10 object-contain"
+                alt="Northern Disconnection logo — a guitar growing into a redwood"
+                width={36}
+                height={107}
+                priority
+                className="logo-cream h-12 w-auto object-contain"
               />
             </motion.div>
-            <div>
-              <h1 className="text-lg font-bold leading-tight text-rust transition-colors group-hover:text-cream">
-                Northern Disconnection
-              </h1>
-            </div>
+            <span className="font-display text-lg leading-tight text-cream transition-colors group-hover:text-gold sm:text-xl">
+              Northern Disconnection
+            </span>
           </Link>
 
-          <div className="flex items-center space-x-8">
+          <div className="flex items-center space-x-6 sm:space-x-8">
             {Object.entries(navItems).map(([path, { name, icon: Icon }]) => {
               const isActive = pathname === path
               return (
                 <Link key={path} href={path} className="group relative">
                   <div className="flex items-center space-x-2">
                     <Icon
-                      size={20}
+                      size={18}
                       className={`transition-colors ${
-                        isActive ? 'text-cream' : 'text-rust group-hover:text-cream'
+                        isActive ? 'text-gold' : 'text-rust group-hover:text-cream'
                       }`}
                     />
                     <span
-                      className={`hidden text-sm font-medium uppercase tracking-wider transition-colors sm:inline-block ${
-                        isActive ? 'text-cream' : 'text-rust group-hover:text-cream'
+                      className={`hidden text-xs font-bold uppercase tracking-[0.2em] transition-colors sm:inline-block ${
+                        isActive ? 'text-gold' : 'text-rust group-hover:text-cream'
                       }`}
                     >
                       {name}
@@ -138,7 +137,7 @@ export function Navbar() {
                   {isActive && (
                     <motion.div
                       layoutId="navbar-indicator"
-                      className="absolute -bottom-[21px] left-0 right-0 h-[3px] bg-cream"
+                      className="absolute -bottom-[27px] left-0 right-0 h-[3px] bg-gold"
                       transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                     />
                   )}

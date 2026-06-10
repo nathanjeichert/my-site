@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import { Mail } from 'lucide-react'
 
 const aboutSections = [
   {
@@ -19,19 +20,21 @@ const aboutSections = [
 ] as const
 
 export const metadata: Metadata = {
-  title: 'About | Northern Disconnection',
+  title: 'About',
   description: 'Learn the story of Northern Disconnection and the longtime friends behind the band.',
 }
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen pt-32 pb-24">
-      <div className="max-w-6xl mx-auto px-4 space-y-20">
-        <header className="text-center space-y-4">
-          <h1 className="text-4xl sm:text-5xl font-bold text-cream">About The Band</h1>
-          <p className="text-lg text-sand max-w-3xl mx-auto leading-relaxed">
+    <div className="min-h-screen pb-24 pt-32">
+      <div className="mx-auto max-w-6xl space-y-20 px-4">
+        <header className="text-center">
+          <p className="eyebrow mb-3">The Story So Far</p>
+          <h1 className="font-display vintage-shadow text-5xl text-cream sm:text-6xl">About the Band</h1>
+          <p className="mx-auto mt-5 max-w-3xl text-lg italic leading-relaxed text-sand">
             Meet the lifelong friends behind Northern Disconnection.
           </p>
+          <div className="ornament mt-6 text-xl" aria-hidden="true">❦</div>
         </header>
 
         {aboutSections.map((section, index) => {
@@ -40,42 +43,51 @@ export default function AboutPage() {
           return (
             <section
               key={section.image.src}
-              className="grid gap-12 md:gap-16 md:grid-cols-2 items-center"
+              className="grid items-center gap-12 md:grid-cols-2 md:gap-16"
             >
-              <div className={`space-y-6 text-lg leading-relaxed text-sand ${isEven ? '' : 'md:order-2'}`}>
-                <p>{section.text}</p>
+              <div className={`text-lg leading-relaxed text-sand ${isEven ? '' : 'md:order-2'}`}>
+                <p className="first-letter:font-display first-letter:float-left first-letter:mr-3 first-letter:text-6xl first-letter:leading-[0.85] first-letter:text-gold">
+                  {section.text}
+                </p>
               </div>
 
-              <div className={`relative ${isEven ? 'md:-mr-24' : 'md:-ml-24 md:order-1'}`}>
+              <div className={`relative ${isEven ? 'md:-mr-16' : 'md:-ml-16 md:order-1'}`}>
                 <div
-                  className={`absolute -inset-6 rounded-3xl bg-gold/15 blur-3xl -z-10 ${
+                  className={`absolute -inset-6 -z-10 rounded-full bg-gold/10 blur-3xl ${
                     isEven ? 'translate-y-8 -translate-x-6' : '-translate-y-8 translate-x-6'
                   }`}
+                  aria-hidden="true"
                 ></div>
+                {/* vintage snapshot frame */}
                 <div
-                  className={`relative aspect-[3/4] overflow-hidden rounded-3xl shadow-2xl ring-2 ring-cream/10 ${
-                    isEven ? 'md:translate-y-6' : 'md:-translate-y-6'
+                  className={`relative border-[10px] border-cream bg-cream shadow-2xl ${
+                    isEven ? 'rotate-1 md:translate-y-6' : '-rotate-1 md:-translate-y-6'
                   }`}
                 >
-                  <Image
-                    src={section.image.src}
-                    alt={section.image.alt}
-                    fill
-                    sizes="(min-width: 768px) 420px, 80vw"
-                    className="object-cover"
-                    priority={index === 0}
-                  />
+                  <div className="relative aspect-[3/4] overflow-hidden">
+                    <Image
+                      src={section.image.src}
+                      alt={section.image.alt}
+                      fill
+                      sizes="(min-width: 768px) 420px, 80vw"
+                      className="object-cover"
+                      priority={index === 0}
+                    />
+                  </div>
                 </div>
               </div>
             </section>
           )
         })}
 
-        <section className="text-center">
-          <a
-            href="mailto:nathanjeichert@gmail.com"
-            className="retro-button inline-flex h-12 w-64 items-center justify-center gap-2 px-6 text-base sm:text-lg whitespace-nowrap border-rust bg-transparent text-rust hover:bg-rust hover:text-midnight"
-          >
+        {/* Booking call-out */}
+        <section className="mx-auto max-w-3xl border-2 border-rust/40 bg-moss/30 px-8 py-10 text-center shadow-[8px_8px_0_rgba(215,180,138,0.2)]">
+          <p className="eyebrow mb-3">Booking &amp; Inquiries</p>
+          <p className="mb-6 text-lg text-sand">
+            Venues, festivals, and private events around the Bay Area — drop us a line.
+          </p>
+          <a href="mailto:nathanjeichert@gmail.com" className="retro-button">
+            <Mail size={16} />
             Contact Us
           </a>
         </section>

@@ -1,11 +1,27 @@
 import './global.css'
 import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
+import { Fraunces, Alegreya_Sans } from 'next/font/google'
 import { Navbar } from './components/nav'
+import Footer from './components/footer'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { baseUrl } from './sitemap'
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-display',
+  axes: ['SOFT', 'WONK', 'opsz'],
+})
+
+const alegreyaSans = Alegreya_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '700', '800'],
+  style: ['normal', 'italic'],
+  variable: '--font-body',
+})
+
+const description =
+  'Northern Disconnection plays psychedelic americana around the San Francisco Bay Area — original songs alongside the music of the Grateful Dead, CSNY, and Steely Dan.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -13,7 +29,7 @@ export const metadata: Metadata = {
     default: 'Northern Disconnection',
     template: '%s | Northern Disconnection',
   },
-  description: 'Northern Disconnection - A young americana duo from Sonoma County, CA',
+  description,
   icons: {
     icon: '/favicon.svg',
     shortcut: '/favicon.svg',
@@ -21,12 +37,12 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Northern Disconnection',
-    description: 'Northern Disconnection - A young americana duo from Sonoma County, CA',
+    description,
     url: baseUrl,
     siteName: 'Northern Disconnection',
     locale: 'en_US',
     type: 'website',
-    images: ['/northern-disconnection-logo.svg'],
+    images: ['/band-photos/gfest-live.jpg'],
   },
   robots: {
     index: true,
@@ -41,8 +57,6 @@ export const metadata: Metadata = {
   },
 }
 
-const cx = (...classes) => classes.filter(Boolean).join(' ')
-
 export default function RootLayout({
   children,
 }: {
@@ -51,17 +65,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cx(
-        'text-rust bg-midnight',
-        GeistSans.variable,
-        GeistMono.variable
-      )}
+      data-scroll-behavior="smooth"
+      className={`${fraunces.variable} ${alegreyaSans.variable}`}
     >
       <body className="antialiased min-h-screen">
         <div className="grain-overlay"></div>
         <main className="relative z-10">
           <Navbar />
           {children}
+          <Footer />
           <Analytics />
           <SpeedInsights />
         </main>

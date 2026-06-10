@@ -49,10 +49,9 @@ export default function SubscribeForm({
 
   return (
     <div className={`text-center ${className}`}>
-      <h2 className="mb-4 text-3xl font-bold text-cream vintage-shadow">
-        {heading}
-      </h2>
-      <p className="mb-6 text-sand">{subheading}</p>
+      <p className="eyebrow mb-3">Stay in the Loop</p>
+      <h2 className="font-display mb-3 text-3xl text-cream sm:text-4xl">{heading}</h2>
+      <p className="mb-7 italic text-sand">{subheading}</p>
 
       <form
         onSubmit={handleSubmit}
@@ -60,7 +59,7 @@ export default function SubscribeForm({
       >
         <div className="relative w-full max-w-md flex-1">
           <Mail
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-sand"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-rust"
             size={20}
           />
           <input
@@ -70,15 +69,15 @@ export default function SubscribeForm({
             placeholder="your@email.com"
             required
             disabled={status === 'loading'}
-            className="w-full rounded-lg border border-rust/30 bg-cream/5 py-3 pl-12 pr-4 text-cream placeholder-sand/50 transition-colors focus:border-rust focus:outline-none disabled:opacity-50"
+            className="w-full border-2 border-rust/40 bg-pine/60 py-3 pl-12 pr-4 text-cream placeholder-sand/50 transition-colors focus:border-gold focus:outline-none disabled:opacity-50"
           />
         </div>
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="whitespace-nowrap rounded-lg border border-rust bg-rust/20 px-8 py-3 font-semibold text-cream transition-colors hover:bg-rust/30 disabled:opacity-50"
+          className="retro-button disabled:opacity-50"
         >
-          {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
+          {status === 'loading' ? 'Subscribing…' : 'Subscribe'}
         </button>
       </form>
 

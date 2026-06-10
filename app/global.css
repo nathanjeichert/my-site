@@ -1,49 +1,50 @@
 @import 'tailwindcss';
 
-::selection {
-  background-color: #355E3B;
-  color: #fefefe;
-}
+/*
+  Northern Disconnection — design system
+  Vintage handbill meets redwood forest: deep pine greens, parchment
+  cream, warm tan, and marigold, under a film-grain overlay.
+*/
 
 :root {
-  --midnight: #0b3d2e;
-  --cream: #faf8f3;
-  --rust: #D7B48A;
-  --sage: #7d8471;
-  --gold: #faf8f3;
-  --burgundy: #800020;
+  --pine: #0c2318; /* page base */
+  --midnight: #0c2318;
+  --forest: #355e3b;
+  --moss: #1d4030;
+  --cream: #f7f2e5;
+  --parchment: #efe6cf;
+  --rust: #d7b48a;
   --sand: #e8dcc6;
-  --sh-class: #2d5e9d;
-  --sh-identifier: #354150;
-  --sh-sign: #8996a3;
-  --sh-string: #007f7a;
-  --sh-keyword: #e02518;
-  --sh-comment: #a19595;
-  --sh-jsxliterals: #6266d1;
-  --sh-property: #e25a1c;
-  --sh-entity: #e25a1c;
+  --gold: #e9b949;
+  --burgundy: #7a2230;
+  --sage: #7d8471;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --sh-class: #4c97f8;
-    --sh-identifier: white;
-    --sh-keyword: #f47067;
-    --sh-string: #0fa295;
-  }
-  html {
-    color-scheme: dark;
-  }
+::selection {
+  background-color: var(--gold);
+  color: var(--pine);
 }
 
 html {
   min-width: 360px;
   scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+html,
+body {
+  overflow-x: clip;
 }
 
 body {
-  background-color: var(--midnight);
-  color: var(--rust);
+  background-color: var(--pine);
+  background-image:
+    radial-gradient(1100px 600px at 70% -100px, rgba(53, 94, 59, 0.55), transparent 70%),
+    radial-gradient(900px 500px at 10% 10%, rgba(233, 185, 73, 0.07), transparent 65%),
+    radial-gradient(1200px 900px at 50% 120%, rgba(122, 34, 48, 0.18), transparent 70%);
+  background-attachment: fixed;
+  color: var(--sand);
+  font-family: var(--font-body), Georgia, serif;
 }
 
 /* Custom scrollbar */
@@ -52,7 +53,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--midnight);
+  background: var(--pine);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -64,7 +65,7 @@ body {
   background: var(--gold);
 }
 
-/* Grain overlay effect */
+/* Film-grain overlay */
 .grain-overlay {
   position: fixed;
   top: 0;
@@ -72,221 +73,143 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  opacity: 0.03;
-  z-index: 1;
+  opacity: 0.05;
+  z-index: 40;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Custom colors */
-.text-cream { color: #faf8f3; }
-.text-rust { color: #D7B48A; }
-.text-sage { color: #7d8471; }
-.text-gold { color: #f4c430; }
-.text-burgundy { color: #800020; }
-.text-sand { color: #e8dcc6; }
+/* Palette utilities */
+.text-cream { color: var(--cream); }
+.text-parchment { color: var(--parchment); }
+.text-rust { color: var(--rust); }
+.text-sage { color: var(--sage); }
+.text-gold { color: var(--gold); }
+.text-burgundy { color: var(--burgundy); }
+.text-sand { color: var(--sand); }
+.text-pine { color: var(--pine); }
 
-.bg-midnight { background-color: #031b33; }
-.bg-cream { background-color: #faf8f3; }
-.bg-rust { background-color: #D7B48A; }
-.bg-sage { background-color: #7d8471; }
-.bg-gold { background-color: #f4c430; }
-.bg-burgundy { background-color: #800020; }
-.bg-sand { background-color: #e8dcc6; }
+.bg-pine { background-color: var(--pine); }
+.bg-midnight { background-color: var(--pine); }
+.bg-moss { background-color: var(--moss); }
+.bg-forest { background-color: var(--forest); }
+.bg-cream { background-color: var(--cream); }
+.bg-parchment { background-color: var(--parchment); }
+.bg-rust { background-color: var(--rust); }
+.bg-sage { background-color: var(--sage); }
+.bg-gold { background-color: var(--gold); }
+.bg-burgundy { background-color: var(--burgundy); }
+.bg-sand { background-color: var(--sand); }
 
-.border-cream { border-color: #faf8f3; }
-.border-rust { border-color: #D7B48A; }
-.border-sage { border-color: #7d8471; }
-.border-gold { border-color: #f4c430; }
+.border-cream { border-color: var(--cream); }
+.border-rust { border-color: var(--rust); }
+.border-sage { border-color: var(--sage); }
+.border-gold { border-color: var(--gold); }
 
-/* Psychedelic gradient backgrounds */
-.gradient-psychedelic {
-  background: linear-gradient(135deg, #355E3B 0%, #D7B48A 25%, #7d8471 50%, #355E3B 75%, #D7B48A 100%);
-  background-size: 400% 400%;
-  animation: psychedelicShift 15s ease infinite;
+/* Display type — vintage poster serif */
+.font-display {
+  font-family: var(--font-display), 'Iowan Old Style', Georgia, serif;
+  font-variation-settings: 'SOFT' 60, 'WONK' 1;
+  letter-spacing: 0.005em;
 }
 
-@keyframes psychedelicShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Small-caps section label */
+.eyebrow {
+  font-family: var(--font-body), Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--rust);
 }
 
-/* Vintage poster text effect */
+/* Letterpress offset shadow for big headings */
 .vintage-shadow {
-  text-shadow: 
-    3px 3px 0px #D7B48A,
-    6px 6px 0px #7d8471,
-    9px 9px 0px #800020,
-    12px 12px 20px rgba(0,0,0,0.5);
+  text-shadow:
+    2px 2px 0 rgba(12, 35, 24, 0.9),
+    4px 4px 0 rgba(215, 180, 138, 0.35);
 }
 
-/* Retro button styles */
+/* Fleuron ornament divider:  ── ❦ ── */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--rust);
+}
+
+.ornament::before,
+.ornament::after {
+  content: '';
+  height: 1px;
+  width: clamp(48px, 18vw, 160px);
+  background: linear-gradient(to var(--ornament-dir, right), transparent, var(--rust));
+  opacity: 0.6;
+}
+
+.ornament::before { --ornament-dir: right; }
+.ornament::after { --ornament-dir: left; }
+
+/* Poster-style buttons: hard offset shadow, hand-bill energy */
 .retro-button {
   position: relative;
-  background-color: #355E3B;
-  color: #faf8f3;
-  border: 3px solid #D7B48A;
-  padding: 12px 32px;
-  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--cream);
+  color: var(--pine);
+  border: 2px solid var(--cream);
+  padding: 12px 28px;
+  font-family: var(--font-body), Georgia, serif;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  transition: all 0.3s ease;
-  box-shadow: 5px 5px 0px #D7B48A;
+  letter-spacing: 0.18em;
+  font-size: 0.875rem;
+  box-shadow: 4px 4px 0 rgba(215, 180, 138, 0.55);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .retro-button:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0px #D7B48A;
-  background-color: #467C57;
+  box-shadow: 6px 6px 0 rgba(215, 180, 138, 0.55);
 }
 
 .retro-button:active {
   transform: translate(2px, 2px);
-  box-shadow: 3px 3px 0px #D7B48A;
+  box-shadow: 2px 2px 0 rgba(215, 180, 138, 0.55);
 }
 
-/* Wavy text animation */
-@keyframes wave {
-  0%, 100% { transform: translateY(0); }
-  25% { transform: translateY(-5px); }
-  75% { transform: translateY(5px); }
+.retro-button--ghost {
+  background-color: rgba(12, 35, 24, 0.35);
+  color: var(--cream);
+  border-color: var(--rust);
+  backdrop-filter: blur(4px);
 }
 
-.wavy-text span {
-  display: inline-block;
-  animation: wave 2s ease-in-out infinite;
+.retro-button--ghost:hover {
+  background-color: rgba(215, 180, 138, 0.15);
 }
 
-.wavy-text span:nth-child(1) { animation-delay: 0s; }
-.wavy-text span:nth-child(2) { animation-delay: 0.1s; }
-.wavy-text span:nth-child(3) { animation-delay: 0.2s; }
-.wavy-text span:nth-child(4) { animation-delay: 0.3s; }
-.wavy-text span:nth-child(5) { animation-delay: 0.4s; }
-.wavy-text span:nth-child(6) { animation-delay: 0.5s; }
-.wavy-text span:nth-child(7) { animation-delay: 0.6s; }
-.wavy-text span:nth-child(8) { animation-delay: 0.7s; }
-.wavy-text span:nth-child(9) { animation-delay: 0.8s; }
-.wavy-text span:nth-child(10) { animation-delay: 0.9s; }
-
-/* Loading animation */
-.loading-dots span {
-  animation: loading 1.4s infinite ease-in-out both;
+/* Renders the black-ink logo artwork in warm cream */
+.logo-cream {
+  filter: brightness(0) invert(0.96) sepia(0.22) drop-shadow(0 6px 28px rgba(0, 0, 0, 0.55));
 }
 
-.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
-.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+/* Slow drifting glow behind featured panels */
+@keyframes aurora-drift {
+  0%, 100% { transform: translate3d(-4%, 0, 0) scale(1); opacity: 0.55; }
+  50% { transform: translate3d(4%, -3%, 0) scale(1.08); opacity: 0.8; }
+}
 
-@keyframes loading {
-  0%, 80%, 100% { 
-    transform: scale(0);
-    opacity: 0.5;
+.aurora {
+  animation: aurora-drift 14s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora {
+    animation: none;
   }
-  40% { 
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Smooth transitions */
-* {
-  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.prose .anchor {
-  @apply absolute invisible no-underline;
-
-  margin-left: -1em;
-  padding-right: 0.5em;
-  width: 80%;
-  max-width: 700px;
-  cursor: pointer;
-}
-
-.anchor:hover {
-  @apply visible;
-}
-
-.prose a {
-  @apply underline transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
-}
-
-.prose .anchor:after {
-  @apply text-neutral-300 dark:text-neutral-700;
-  content: '#';
-}
-
-.prose *:hover > .anchor {
-  @apply visible;
-}
-
-.prose pre {
-  @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900 py-2 px-3 text-sm;
-}
-
-.prose code {
-  @apply px-1 py-0.5 rounded-lg;
-}
-
-.prose pre code {
-  @apply p-0;
-  border: initial;
-  line-height: 1.5;
-}
-
-.prose code span {
-  @apply font-medium;
-}
-
-.prose img {
-  /* Don't apply styles to next/image */
-  @apply m-0;
-}
-
-.prose p {
-  @apply my-4 text-neutral-800 dark:text-neutral-200;
-}
-
-.prose h1 {
-  @apply text-4xl font-medium tracking-tight mt-6 mb-2;
-}
-
-.prose h2 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
-}
-
-.prose h3 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
-}
-
-.prose h4 {
-  @apply text-lg font-medium tracking-tight mt-6 mb-2;
-}
-
-.prose strong {
-  @apply font-medium;
-}
-
-.prose ul {
-  @apply list-disc pl-6;
-}
-
-.prose ol {
-  @apply list-decimal pl-6;
-}
-
-.prose > :first-child {
-  /* Override removing top margin, causing layout shift */
-  margin-top: 1.25em !important;
-  margin-bottom: 1.25em !important;
-}
-
-pre::-webkit-scrollbar {
-  display: none;
-}
-
-pre {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
 }
 
 /* Remove Safari input shadow on mobile */
@@ -295,13 +218,6 @@ input[type='email'] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-}
-
-table {
-  display: block;
-  max-width: fit-content;
-  overflow-x: auto;
-  white-space: nowrap;
 }
 
 .title {

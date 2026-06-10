@@ -1,90 +1,119 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Calendar, MapPin, Clock, Ticket, ChevronRight } from 'lucide-react'
-import { ShowsContent } from '@/types/content'
+import { MapPin, Clock, Ticket, ChevronRight } from 'lucide-react'
+import type { Show } from '@/types/content'
+import { getDateParts, getWeekday } from '@/lib/dates'
 import SubscribeForm from '@/app/components/subscribe-form'
 
 interface ShowsPageProps {
-  content: ShowsContent;
+  title: string
+  shows: Show[]
+  nextShowIndex: number
 }
 
-export default function ShowsClient({ content }: ShowsPageProps) {
-  const { pageContent, upcomingShows } = content;
-
+export default function ShowsClient({ title, shows, nextShowIndex }: ShowsPageProps) {
   return (
-    <div className="min-h-screen pt-32 px-4">
-      <div className="max-w-6xl mx-auto">
-        <motion.h1 
+    <div className="min-h-screen px-4 pb-24 pt-32">
+      <div className="mx-auto max-w-4xl">
+        <motion.header
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-5xl font-bold text-cream mb-12 vintage-shadow"
+          className="mb-14 text-center"
         >
-          {pageContent.title}
-        </motion.h1>
+          <p className="eyebrow mb-3">On the Road</p>
+          <h1 className="font-display vintage-shadow text-5xl text-cream sm:text-6xl">{title}</h1>
+          <div className="ornament mt-6 text-xl" aria-hidden="true">❦</div>
+        </motion.header>
 
-        <div className="space-y-6">
-          {upcomingShows.map((show, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-cream/5 border border-rust/30 rounded-lg p-6 hover:bg-cream/10 transition-colors"
-            >
-              <div className="grid md:grid-cols-3 gap-6">
-                <div>
-                  <div className="flex items-center text-cream mb-2">
-                    <Calendar size={20} className="mr-2" />
-                    <span className="font-bold">{show.date}</span>
-                  </div>
-                  {show.time && (
-                    <div className="flex items-center text-sand">
-                      <Clock size={20} className="mr-2" />
-                      <span>{show.time}</span>
+        <div className="space-y-5">
+          {shows.map((show, index) => {
+            const parts = getDateParts(show)
+            const weekday = getWeekday(show)
+            const isNext = index === nextShowIndex
+
+            return (
+              <motion.article
+                key={`${show.date}-${show.venue}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.08 }}
+                className={`relative flex flex-col gap-5 border-2 p-6 transition-colors sm:flex-row sm:items-center sm:gap-8 ${
+                  isNext
+                    ? 'border-gold/70 bg-moss/50 shadow-[6px_6px_0_rgba(233,185,73,0.25)]'
+                    : 'border-rust/30 bg-pine/40 hover:border-rust/60 hover:bg-moss/30'
+                }`}
+              >
+                {isNext && (
+                  <span className="absolute -top-3 left-5 bg-gold px-3 py-0.5 text-[0.65rem] font-bold uppercase tracking-[0.25em] text-pine">
+                    Next Show
+                  </span>
+                )}
+
+                {/* Date block — torn off a wall calendar */}
+                {parts ? (
+                  <div className="flex shrink-0 items-center gap-4 sm:w-32 sm:flex-col sm:gap-0 sm:border-r-2 sm:border-rust/30 sm:pr-8 sm:text-center">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-[0.3em] text-rust">
+                        {weekday?.slice(0, 3)} · {parts.month}
+                      </p>
+                      <p className="font-display text-5xl leading-none text-cream sm:text-6xl">{parts.day}</p>
+                      <p className="mt-1 text-xs tracking-[0.2em] text-sand/60">{parts.year}</p>
                     </div>
-                  )}
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-bold text-cream mb-1">{show.venue}</h3>
-                  <div className="flex items-center text-sand">
-                    <MapPin size={20} className="mr-2" />
-                    <span>{show.location}</span>
                   </div>
+                ) : (
+                  <div className="shrink-0 sm:w-32 sm:border-r-2 sm:border-rust/30 sm:pr-8 sm:text-center">
+                    <p className="font-display text-2xl text-cream">{show.date}</p>
+                  </div>
+                )}
+
+                {/* Venue + details */}
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-display text-2xl text-cream sm:text-3xl">{show.venue}</h3>
+                  <div className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-1 text-sand">
+                    <span className="flex items-center gap-1.5">
+                      <MapPin size={16} className="shrink-0 text-rust" />
+                      {show.location}
+                    </span>
+                    {show.time && (
+                      <span className="flex items-center gap-1.5">
+                        <Clock size={16} className="shrink-0 text-rust" />
+                        {show.time}
+                      </span>
+                    )}
+                  </div>
+                  {show.description && (
+                    <p className="mt-3 text-sm italic leading-relaxed text-sand/80">{show.description}</p>
+                  )}
                 </div>
 
-                <div className="flex flex-col justify-between">
-                  {show.description && (
-                    <p className="text-sand text-sm mb-4 md:mb-0">{show.description}</p>
-                  )}
-                  {show.soldOut ? (
-                    <span className="text-rust font-bold uppercase">Sold Out</span>
-                  ) : show.hasTickets ? (
-                    <a
-                      href={show.ticketsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-cream hover:text-rust transition-colors group"
-                    >
-                      <Ticket size={20} className="mr-2" />
-                      <span>Get Tickets</span>
-                      <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
-                    </a>
-                  ) : null}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+                {/* Tickets / status */}
+                {(show.soldOut || show.hasTickets) && (
+                  <div className="shrink-0 sm:self-center">
+                    {show.soldOut ? (
+                      <span className="font-bold uppercase tracking-[0.2em] text-burgundy">Sold Out</span>
+                    ) : (
+                      <a
+                        href={show.ticketsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex items-center gap-2 border-2 border-gold/70 px-4 py-2 text-sm font-bold uppercase tracking-[0.15em] text-gold transition-colors hover:bg-gold hover:text-pine"
+                      >
+                        <Ticket size={16} />
+                        Tickets
+                        <ChevronRight size={14} className="transition-transform group-hover:translate-x-1" />
+                      </a>
+                    )}
+                  </div>
+                )}
+              </motion.article>
+            )
+          })}
         </div>
 
-        {upcomingShows.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-20"
-          >
-            <p className="text-2xl text-sand">Check back soon for more shows!</p>
+        {shows.length === 0 && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-20 text-center">
+            <p className="font-display text-2xl text-sand">Check back soon for more shows!</p>
           </motion.div>
         )}
 
@@ -92,13 +121,13 @@ export default function ShowsClient({ content }: ShowsPageProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="mt-16 border-t border-rust/30 pt-12"
+          className="mt-20"
         >
-          <div className="max-w-2xl mx-auto">
+          <div className="ornament mb-10 text-xl" aria-hidden="true">❦</div>
+          <div className="mx-auto max-w-2xl">
             <SubscribeForm />
           </div>
         </motion.div>
-
       </div>
     </div>
   )
