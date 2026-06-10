@@ -41,9 +41,9 @@ Other page content is written inline in its respective component:
 - `app/about/page.tsx` — about + booking call-out
 - `app/music/page.tsx` — the Archive.org "Live at G-Fest 2025" embed
 
-The newsletter subscribe form is a shared component at `app/components/subscribe-form.tsx`, used by the home and shows pages. It POSTs to `/api/subscribe`, which stores emails in Redis.
+The newsletter subscribe form is a shared component at `app/components/subscribe-form.tsx`, used by the home and shows pages. It POSTs to `/api/subscribe`, which stores contacts in a Resend Audience (`RESEND_API_KEY` / `RESEND_AUDIENCE_ID` env vars). When `content/shows.json` gains new upcoming shows, the GitHub Action `.github/workflows/announce-shows.yml` automatically emails subscribers one digest via Resend Broadcasts (see `NEWSLETTER.md`). Show alerts require no manual steps — just edit shows.json and push.
 
-`/api/youtube/latest` reads the channel's RSS feed; the feed currently 404s on YouTube's side, so the route falls back to a hardcoded latest video ID (title/thumbnail refreshed via oEmbed). When new videos are posted, update `FALLBACK_VIDEO_ID` in `app/api/youtube/latest/route.ts`.
+`/api/youtube/latest` resolves the channel's most recent upload automatically: the RSS feed first (newest entry by published date), then a scrape of the channel's Videos tab (the feed has had day-long outages), then the hardcoded `FALLBACK_VIDEO_ID` in `app/api/youtube/latest/route.ts` as a last resort. New uploads appear on the homepage without any code changes.
 
 ### Architecture Notes
 - Server components load content at build time; client components handle interactivity

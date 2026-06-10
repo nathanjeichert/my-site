@@ -1,0 +1,37 @@
+name: Announce new shows
+
+# Fires whenever shows.json changes on main (local push or GitHub web edit).
+# The script only emails when genuinely new, upcoming shows were added.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/shows.json'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Render the email without sending'
+        type: boolean
+        default: true
+
+jobs:
+  announce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # full history so the pre-push version of shows.json is reachable
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Diff shows.json and send alert if new shows were added
+        run: node scripts/announce-shows.mjs
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_AUDIENCE_ID: ${{ secrets.RESEND_AUDIENCE_ID }}
+          BEFORE_REF: ${{ github.event.before }}
+          AFTER_REF: ${{ github.sha }}
+          DRY_RUN: ${{ (github.event_name == 'workflow_dispatch' && inputs.dry_run) && '1' || '' }}

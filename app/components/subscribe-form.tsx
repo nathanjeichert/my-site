@@ -38,8 +38,9 @@ export default function SubscribeForm({
         setMessage('Thanks for subscribing!')
         setEmail('')
       } else {
+        const data = await response.json().catch(() => null)
         setStatus('error')
-        setMessage('Something went wrong. Please try again.')
+        setMessage(data?.error || 'Something went wrong. Please try again.')
       }
     } catch {
       setStatus('error')
