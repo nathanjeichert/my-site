@@ -113,7 +113,7 @@ export default function HomeClient({ nextShow }: HomeClientProps) {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, ease: 'easeOut' }}
-            className="w-full max-w-lg"
+            className="w-full max-w-[35rem]"
           >
             <Image
               src="/logo-hero.png"
