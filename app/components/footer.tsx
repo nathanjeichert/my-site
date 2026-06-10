@@ -23,7 +23,7 @@ export default function Footer() {
               className="logo-cream h-24 w-auto opacity-80"
             />
             <div>
-              <h3 className="font-display mb-2 text-xl text-cream">Northern Disconnection</h3>
+              <h3 className="font-wordmark mb-2 text-xl text-cream">Northern Disconnection</h3>
               <p className="text-sm leading-relaxed text-sand/80">
                 Psychedelic americana from Sonoma County, CA — originals and the
                 songbook of the Grateful Dead, live around the Bay Area.

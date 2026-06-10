@@ -101,12 +101,12 @@ export default function HomeClient({ nextShow }: HomeClientProps) {
           fill
           priority
           sizes="100vw"
-          className="origin-bottom scale-[1.2] object-cover object-center"
+          className="origin-bottom -translate-y-12 scale-[1.2] object-cover object-center"
         />
-        {/* dusk wash so the type reads over the daylight photo */}
-        <div className="absolute inset-0 bg-[#0c2318]/35" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0c2318]/60 via-transparent to-[#0c2318]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_rgba(12,35,24,0.5)_100%)]" />
+        {/* light dusk wash so the type reads over the daylight photo */}
+        <div className="absolute inset-0 bg-[#0c2318]/15" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0c2318]/40 via-transparent to-[#0c2318]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_40%,_rgba(12,35,24,0.35)_100%)]" />
 
         <div className="relative z-10 flex w-full max-w-4xl flex-col items-center gap-6 text-center">
           <motion.div
