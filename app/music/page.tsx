@@ -10,7 +10,6 @@ export default function MusicPage() {
     <div className="min-h-screen px-4 pb-24 pt-32">
       <div className="mx-auto max-w-4xl">
         <header className="mb-12 text-center">
-          <p className="eyebrow mb-3">Live Recording</p>
           <h1 className="font-display vintage-shadow text-5xl text-cream sm:text-6xl">Live at G-Fest 2025</h1>
           <p className="mt-4 text-sand/80">September 27, 2025 · Petaluma, CA</p>
           <div className="ornament mt-6 text-xl" aria-hidden="true">❦</div>
@@ -27,10 +26,6 @@ export default function MusicPage() {
             allowFullScreen
           />
         </div>
-
-        <p className="mt-4 text-center text-sm italic text-sand/60">
-          Streaming free from the Internet Archive — in the live-taping tradition.
-        </p>
 
         <div className="mt-14 text-center">
           <a

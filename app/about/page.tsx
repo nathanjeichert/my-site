@@ -29,11 +29,7 @@ export default function AboutPage() {
     <div className="min-h-screen pb-24 pt-32">
       <div className="mx-auto max-w-6xl space-y-20 px-4">
         <header className="text-center">
-          <p className="eyebrow mb-3">The Story So Far</p>
           <h1 className="font-display vintage-shadow text-5xl text-cream sm:text-6xl">About the Band</h1>
-          <p className="mx-auto mt-5 max-w-3xl text-lg italic leading-relaxed text-sand">
-            Meet the lifelong friends behind Northern Disconnection.
-          </p>
           <div className="ornament mt-6 text-xl" aria-hidden="true">❦</div>
         </header>
 

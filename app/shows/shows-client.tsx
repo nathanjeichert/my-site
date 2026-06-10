@@ -21,7 +21,6 @@ export default function ShowsClient({ title, shows, nextShowIndex }: ShowsPagePr
           animate={{ opacity: 1, y: 0 }}
           className="mb-14 text-center"
         >
-          <p className="eyebrow mb-3">On the Road</p>
           <h1 className="font-display vintage-shadow text-5xl text-cream sm:text-6xl">{title}</h1>
           <div className="ornament mt-6 text-xl" aria-hidden="true">❦</div>
         </motion.header>

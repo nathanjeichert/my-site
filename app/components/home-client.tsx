@@ -200,8 +200,7 @@ export default function HomeClient({ nextShow }: HomeClientProps) {
           aria-hidden="true"
         />
 
-        <div className="ornament mb-4 text-xl" aria-hidden="true">❦</div>
-        <p className="eyebrow mb-3 text-center">From a Recent Show</p>
+        <div className="ornament mb-6 text-xl" aria-hidden="true">❦</div>
         <h2 className="font-display mb-8 text-center text-2xl text-cream sm:text-3xl">
           {latestVideo?.title ?? (isLoadingVideo ? 'Tuning up…' : 'New video coming soon')}
         </h2>

@@ -49,7 +49,6 @@ export default function SubscribeForm({
 
   return (
     <div className={`text-center ${className}`}>
-      <p className="eyebrow mb-3">Stay in the Loop</p>
       <h2 className="font-display mb-3 text-3xl text-cream sm:text-4xl">{heading}</h2>
       <p className="mb-7 italic text-sand">{subheading}</p>
 
