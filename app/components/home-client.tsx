@@ -93,7 +93,7 @@ export default function HomeClient({ nextShow }: HomeClientProps) {
   return (
     <div className="min-h-screen text-cream">
       {/* ============ HERO — live at G-Fest ============ */}
-      <section className="relative flex min-h-[100svh] flex-col items-center justify-end overflow-hidden px-4 pb-14 pt-28">
+      <section className="relative flex min-h-[100svh] flex-col overflow-hidden px-4 pb-12">
         {/* zoomed and bottom-anchored so the band's faces sit above the text block */}
         <Image
           src="/band-photos/gfest-live.jpg"
@@ -108,7 +108,20 @@ export default function HomeClient({ nextShow }: HomeClientProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-[#0c2318]/40 via-transparent to-[#0c2318]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_40%,_rgba(12,35,24,0.35)_100%)]" />
 
-        <div className="relative z-10 flex w-full max-w-4xl flex-col items-center gap-6 text-center">
+        {/*
+          Spacer that tracks the band's faces across aspect ratios. The photo
+          (1744x902) is object-cover'd, scaled 1.2x from the bottom, and
+          shifted up 48px, so its rendered height is 1.2 * max(100svh, vw/1.933)
+          and the faces' chins sit ~43% from the image top. The calc reserves
+          exactly that much viewport (plus a 32px buffer; 7rem floor clears the
+          fixed nav) so the logo always starts just below the faces.
+        */}
+        <div
+          aria-hidden="true"
+          className="h-[max(7rem,calc(100svh_-_max(68.4svh,35.39vw)_-_32px))] shrink-0"
+        />
+
+        <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center gap-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
