@@ -180,6 +180,12 @@ body {
   box-shadow: 2px 2px 0 rgba(215, 180, 138, 0.55);
 }
 
+.retro-button--sm {
+  padding: 8px 20px;
+  font-size: 0.75rem;
+  box-shadow: 3px 3px 0 rgba(215, 180, 138, 0.55);
+}
+
 .retro-button--ghost {
   background-color: rgba(12, 35, 24, 0.35);
   color: var(--cream);

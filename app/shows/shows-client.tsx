@@ -25,6 +25,15 @@ export default function ShowsClient({ title, shows, nextShowIndex }: ShowsPagePr
           <div className="ornament mt-6 text-xl" aria-hidden="true">❦</div>
         </motion.header>
 
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="mb-10 border-2 border-rust/30 bg-moss/30 px-5 py-4"
+        >
+          <SubscribeForm />
+        </motion.div>
+
         <div className="space-y-5">
           {shows.map((show, index) => {
             const parts = getDateParts(show)
@@ -115,18 +124,6 @@ export default function ShowsClient({ title, shows, nextShowIndex }: ShowsPagePr
             <p className="font-display text-2xl text-sand">Check back soon for more shows!</p>
           </motion.div>
         )}
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="mt-20"
-        >
-          <div className="ornament mb-10 text-xl" aria-hidden="true">❦</div>
-          <div className="mx-auto max-w-2xl">
-            <SubscribeForm />
-          </div>
-        </motion.div>
       </div>
     </div>
   )

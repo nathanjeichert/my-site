@@ -195,6 +195,11 @@ export default function HomeClient({ nextShow }: HomeClientProps) {
         </div>
       </section>
 
+      {/* ============ SHOW ALERTS ============ */}
+      <section className="border-y-2 border-rust/40 bg-moss/40 px-4 py-5">
+        <SubscribeForm />
+      </section>
+
       {/* ============ LATEST VIDEO ============ */}
       <section className="relative mx-auto w-full max-w-4xl px-4 py-24">
         <div
@@ -210,12 +215,6 @@ export default function HomeClient({ nextShow }: HomeClientProps) {
         <div className="border-2 border-rust/50 bg-pine/60 p-2 shadow-[8px_8px_0_rgba(215,180,138,0.25)] sm:p-3">
           {renderVideoEmbed()}
         </div>
-      </section>
-
-      {/* ============ SUBSCRIBE ============ */}
-      <section className="mx-auto w-full max-w-2xl px-4 pb-28">
-        <div className="ornament mb-10 text-xl" aria-hidden="true">❦</div>
-        <SubscribeForm />
       </section>
     </div>
   )

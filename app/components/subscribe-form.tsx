@@ -7,16 +7,11 @@ import { Mail } from 'lucide-react'
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
 interface SubscribeFormProps {
-  heading?: string
-  subheading?: string
   className?: string
 }
 
-export default function SubscribeForm({
-  heading = 'Get Show Alerts',
-  subheading = 'Subscribe to be notified when we announce new shows',
-  className = '',
-}: SubscribeFormProps) {
+// Compact one-line signup strip: label + email input + button.
+export default function SubscribeForm({ className = '' }: SubscribeFormProps) {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<Status>('idle')
   const [message, setMessage] = useState('')
@@ -50,32 +45,28 @@ export default function SubscribeForm({
 
   return (
     <div className={`text-center ${className}`}>
-      <h2 className="font-display mb-3 text-3xl text-cream sm:text-4xl">{heading}</h2>
-      <p className="mb-7 italic text-sand">{subheading}</p>
-
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+        className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3"
       >
-        <div className="relative w-full max-w-md flex-1">
-          <Mail
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-rust"
-            size={20}
-          />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="your@email.com"
-            required
-            disabled={status === 'loading'}
-            className="w-full border-2 border-rust/40 bg-pine/60 py-3 pl-12 pr-4 text-cream placeholder-sand/50 transition-colors focus:border-gold focus:outline-none disabled:opacity-50"
-          />
-        </div>
+        <span className="flex items-center gap-2 whitespace-nowrap font-display text-lg text-cream">
+          <Mail size={18} className="shrink-0 text-rust" aria-hidden="true" />
+          Get Show Alerts
+        </span>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="your@email.com"
+          aria-label="Email address"
+          required
+          disabled={status === 'loading'}
+          className="w-full min-w-0 max-w-xs flex-1 border-2 border-rust/40 bg-pine/60 px-4 py-2 text-sm text-cream placeholder-sand/50 transition-colors focus:border-gold focus:outline-none disabled:opacity-50 max-sm:basis-full sm:w-auto"
+        />
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="retro-button disabled:opacity-50"
+          className="retro-button retro-button--sm disabled:opacity-50"
         >
           {status === 'loading' ? 'Subscribing…' : 'Subscribe'}
         </button>
@@ -85,7 +76,7 @@ export default function SubscribeForm({
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className={`mt-4 ${status === 'success' ? 'text-gold' : 'text-rust'}`}
+          className={`mt-3 text-sm ${status === 'success' ? 'text-gold' : 'text-rust'}`}
         >
           {message}
         </motion.p>
