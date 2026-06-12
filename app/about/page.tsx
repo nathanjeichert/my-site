@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { Mail } from 'lucide-react'
+import Ornament from '@/app/components/ornament'
 
 const aboutSections = [
   {
@@ -30,7 +31,7 @@ export default function AboutPage() {
       <div className="mx-auto max-w-6xl space-y-20 px-4">
         <header className="text-center">
           <h1 className="font-display vintage-shadow text-5xl text-cream sm:text-6xl">About the Band</h1>
-          <div className="ornament mt-6 text-xl" aria-hidden="true">❦</div>
+          <Ornament className="mt-6" />
         </header>
 
         {aboutSections.map((section, index) => {

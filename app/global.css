@@ -31,6 +31,12 @@ html {
   color-scheme: dark;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 html,
 body {
   overflow-x: clip;
@@ -76,6 +82,21 @@ body {
   opacity: 0.05;
   z-index: 40;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Printer's-mark watermark: the logo line art, fixed and faint behind
+   page content so the open pine midsections carry a little texture */
+.watermark-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url('/logonotext.svg');
+  background-repeat: no-repeat;
+  background-position: center 42%;
+  background-size: auto min(58vmin, 30rem);
+  filter: brightness(0) invert(0.96) sepia(0.22);
+  opacity: 0.04;
 }
 
 /* Palette utilities */
@@ -223,6 +244,29 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .aurora {
     animation: none;
+  }
+}
+
+/* Ticket-stub perforation: punch-hole bites where the date-column
+   divider meets the card edges. The divider is the right border of the
+   8rem date column inside the card's 1.5rem padding, so the holes sit
+   at 9.5rem (minus 1px to center on the 2px rule). Masks the card and
+   its hard offset shadow, so the bite carries through both. sm+ only —
+   the divider doesn't exist in the stacked mobile layout. If
+   mask-composite is unsupported the layers union to fully opaque and
+   the card simply renders without bites. */
+@media (min-width: 640px) {
+  .ticket-stub {
+    --punch-r: 0.4rem;
+    --punch-x: calc(9.5rem - 1px);
+    -webkit-mask-image:
+      radial-gradient(circle var(--punch-r) at var(--punch-x) 0, transparent calc(var(--punch-r) - 1px), #000 var(--punch-r)),
+      radial-gradient(circle var(--punch-r) at var(--punch-x) 100%, transparent calc(var(--punch-r) - 1px), #000 var(--punch-r));
+    -webkit-mask-composite: source-in;
+    mask-image:
+      radial-gradient(circle var(--punch-r) at var(--punch-x) 0, transparent calc(var(--punch-r) - 1px), #000 var(--punch-r)),
+      radial-gradient(circle var(--punch-r) at var(--punch-x) 100%, transparent calc(var(--punch-r) - 1px), #000 var(--punch-r));
+    mask-composite: intersect;
   }
 }
 
