@@ -8,6 +8,7 @@ import { Music, Calendar, Mail, MapPin } from 'lucide-react'
 import type { Show } from '@/types/content'
 import { getWeekday } from '@/lib/dates'
 import SubscribeForm from './subscribe-form'
+import Ornament from './ornament'
 
 type LatestVideo = {
   videoId: string
@@ -207,7 +208,8 @@ export default function HomeClient({ nextShow }: HomeClientProps) {
           aria-hidden="true"
         />
 
-        <div className="ornament mb-6 text-xl" aria-hidden="true">❦</div>
+        {/* The lone classic fleuron — page headers carry the logo mark instead */}
+        <Ornament className="mb-6 text-xl" glyph="❦" />
         <h2 className="font-display mb-8 text-center text-2xl text-cream sm:text-3xl">
           {latestVideo?.title ?? (isLoadingVideo ? 'Tuning up…' : 'New video coming soon')}
         </h2>

@@ -1,4 +1,5 @@
 import { Youtube } from 'lucide-react'
+import Ornament from '@/app/components/ornament'
 
 export const metadata = {
   title: 'Music',
@@ -12,7 +13,7 @@ export default function MusicPage() {
         <header className="mb-12 text-center">
           <h1 className="font-display vintage-shadow text-5xl text-cream sm:text-6xl">Live at G-Fest 2025</h1>
           <p className="mt-4 text-sand/80">September 27, 2025 · Petaluma, CA</p>
-          <div className="ornament mt-6 text-xl" aria-hidden="true">❦</div>
+          <Ornament className="mt-6" />
         </header>
 
         {/* Full show — taper-style soundboard from the Internet Archive */}

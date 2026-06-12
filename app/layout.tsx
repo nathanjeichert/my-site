@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Fraunces, Alegreya_Sans } from 'next/font/google'
 import { Navbar } from './components/nav'
 import Footer from './components/footer'
+import MotionProvider from './components/motion-provider'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { baseUrl } from './sitemap'
@@ -70,10 +71,13 @@ export default function RootLayout({
     >
       <body className="antialiased min-h-screen">
         <div className="grain-overlay"></div>
+        <div className="watermark-overlay" aria-hidden="true"></div>
         <main className="relative z-10">
-          <Navbar />
-          {children}
-          <Footer />
+          <MotionProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </MotionProvider>
           <Analytics />
           <SpeedInsights />
         </main>
