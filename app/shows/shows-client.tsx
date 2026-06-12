@@ -1,12 +1,14 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { MapPin, Clock, Ticket, ChevronRight, CalendarPlus } from 'lucide-react'
+import { MapPin, Clock, Ticket, ChevronRight, CalendarPlus, Share2 } from 'lucide-react'
 import type { Show } from '@/types/content'
 import { getDateParts, getWeekday } from '@/lib/dates'
 import { buildShowIcs, showIcsFilename } from '@/lib/calendar'
 import SubscribeForm from '@/app/components/subscribe-form'
 import Ornament from '@/app/components/ornament'
+import ShowFlyerModal from '@/app/components/show-flyer-modal'
 
 function downloadShowIcs(show: Show) {
   const ics = buildShowIcs(show)
@@ -27,6 +29,8 @@ interface ShowsPageProps {
 }
 
 export default function ShowsClient({ title, shows, nextShowIndex }: ShowsPageProps) {
+  const [flyerShow, setFlyerShow] = useState<Show | null>(null)
+
   return (
     <div className="min-h-screen px-4 pb-24 pt-32">
       <div className="mx-auto max-w-4xl">
@@ -111,16 +115,26 @@ export default function ShowsClient({ title, shows, nextShowIndex }: ShowsPagePr
                     {show.description && (
                       <p className="mt-3 text-sm italic leading-relaxed text-sand/80">{show.description}</p>
                     )}
-                    {parts && (
+                    <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1.5">
+                      {parts && (
+                        <button
+                          type="button"
+                          onClick={() => downloadShowIcs(show)}
+                          className="inline-flex items-center gap-1.5 text-[0.7rem] font-bold uppercase tracking-[0.2em] text-rust/80 transition-colors hover:text-gold"
+                        >
+                          <CalendarPlus size={14} className="shrink-0" />
+                          Add to Calendar
+                        </button>
+                      )}
                       <button
                         type="button"
-                        onClick={() => downloadShowIcs(show)}
-                        className="mt-3 inline-flex items-center gap-1.5 text-[0.7rem] font-bold uppercase tracking-[0.2em] text-rust/80 transition-colors hover:text-gold"
+                        onClick={() => setFlyerShow(show)}
+                        className="inline-flex items-center gap-1.5 text-[0.7rem] font-bold uppercase tracking-[0.2em] text-rust/80 transition-colors hover:text-gold"
                       >
-                        <CalendarPlus size={14} className="shrink-0" />
-                        Add to Calendar
+                        <Share2 size={14} className="shrink-0" />
+                        Share Flyer
                       </button>
-                    )}
+                    </div>
                   </div>
 
                   {/* Tickets / status */}
@@ -154,6 +168,8 @@ export default function ShowsClient({ title, shows, nextShowIndex }: ShowsPagePr
           </motion.div>
         )}
       </div>
+
+      {flyerShow && <ShowFlyerModal show={flyerShow} onClose={() => setFlyerShow(null)} />}
     </div>
   )
 }
