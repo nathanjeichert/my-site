@@ -397,10 +397,63 @@ async function loadLogoAssets(): Promise<LogoAssets | null> {
   }
 }
 
+// Fraunces' default capital J drops a deep descender that reads oddly in the
+// all-caps date line. Character variant cv16 swaps it for a J that rests on the
+// baseline and changes nothing else. Canvas can't set font-feature-settings
+// through ctx.font, so register a FontFace built from the same self-hosted
+// Fraunces file with cv16 baked in, and draw the headline type with that.
+let displayFamilyPromise: Promise<string> | null = null
+
+function findFrauncesUrl(): string | null {
+  for (const sheet of Array.from(document.styleSheets)) {
+    let rules: CSSRuleList
+    try {
+      rules = sheet.cssRules
+    } catch {
+      continue // cross-origin sheet, skip
+    }
+    if (!rules) continue
+    for (const rule of Array.from(rules)) {
+      const text = rule.cssText
+      if (text && /Fraunces/i.test(text) && text.includes('url(')) {
+        const match = text.match(/url\(([^)]+)\)/)
+        if (match) {
+          try {
+            return new URL(match[1].replace(/["']/g, ''), sheet.href ?? location.href).href
+          } catch {
+            return null
+          }
+        }
+      }
+    }
+  }
+  return null
+}
+
+function loadDisplayFamily(fallback: string): Promise<string> {
+  displayFamilyPromise ??= (async () => {
+    try {
+      const url = findFrauncesUrl()
+      if (!url || typeof FontFace === 'undefined') return fallback
+      const face = new FontFace('FrauncesFlyer', `url(${url})`, {
+        weight: '100 900',
+        featureSettings: "'cv16' 1",
+      })
+      await face.load()
+      document.fonts.add(face)
+      return `"FrauncesFlyer", ${fallback}`
+    } catch {
+      return fallback // fall back to the stock face (descending J, but it renders)
+    }
+  })()
+  return displayFamilyPromise
+}
+
 async function ensureFonts(): Promise<{ display: string; body: string }> {
   const styles = getComputedStyle(document.documentElement)
-  const display = styles.getPropertyValue('--font-display').trim() || 'Georgia, serif'
+  const baseDisplay = styles.getPropertyValue('--font-display').trim() || 'Georgia, serif'
   const body = styles.getPropertyValue('--font-body').trim() || 'Georgia, serif'
+  const display = await loadDisplayFamily(baseDisplay)
   try {
     await Promise.all([
       document.fonts.load(`600 90px ${display}`),
