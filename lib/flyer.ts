@@ -397,41 +397,39 @@ async function loadLogoAssets(): Promise<LogoAssets | null> {
   }
 }
 
-// Fraunces' default capital J drops a deep descender that reads oddly in the
-// all-caps date line. Character variant cv16 swaps it for a J that rests on the
-// baseline and changes nothing else. Canvas can't set font-feature-settings
-// through ctx.font, so register a FontFace built from a self-hosted copy of
-// Fraunces (public/fonts/fraunces-flyer.woff2) with cv16 baked in, and draw the
-// headline type with it. Self-hosting at a fixed path keeps this working in
-// production, where the next/font asset URL isn't discoverable at runtime.
-let displayFamilyPromise: Promise<string> | null = null
+// Fraunces' capital J dives well below the baseline and the font ships no
+// alternate for it, which looks odd in the big all-caps date line. So the date
+// alone is set in Libre Caslon Display (self-hosted), a vintage Caslon whose J
+// rests on the baseline; everything else stays Fraunces. Loading a self-hosted
+// file at a fixed path keeps this identical in dev and production.
+let dateFamilyPromise: Promise<string> | null = null
 
-function loadDisplayFamily(fallback: string): Promise<string> {
-  displayFamilyPromise ??= (async () => {
+function loadDateFamily(fallback: string): Promise<string> {
+  dateFamilyPromise ??= (async () => {
     try {
       if (typeof FontFace === 'undefined') return fallback
-      const face = new FontFace('FrauncesFlyer', 'url(/fonts/fraunces-flyer.woff2)', {
-        weight: '100 900',
-        featureSettings: "'cv16' 1",
+      const face = new FontFace('LibreCaslonFlyer', 'url(/fonts/libre-caslon-display.woff2)', {
+        weight: '400',
       })
       await face.load()
       document.fonts.add(face)
-      return `"FrauncesFlyer", ${fallback}`
+      return `"LibreCaslonFlyer", ${fallback}`
     } catch {
-      return fallback // fall back to the stock face (descending J) if the file is missing
+      return fallback // fall back to Fraunces (descending J) if the file is missing
     }
   })()
-  return displayFamilyPromise
+  return dateFamilyPromise
 }
 
-async function ensureFonts(): Promise<{ display: string; body: string }> {
+async function ensureFonts(): Promise<{ display: string; body: string; date: string }> {
   const styles = getComputedStyle(document.documentElement)
-  const baseDisplay = styles.getPropertyValue('--font-display').trim() || 'Georgia, serif'
+  const display = styles.getPropertyValue('--font-display').trim() || 'Georgia, serif'
   const body = styles.getPropertyValue('--font-body').trim() || 'Georgia, serif'
-  const display = await loadDisplayFamily(baseDisplay)
+  const date = await loadDateFamily(display)
   try {
     await Promise.all([
       document.fonts.load(`600 90px ${display}`),
+      document.fonts.load(`400 90px ${date}`),
       document.fonts.load(`700 36px ${body}`),
       document.fonts.load(`500 36px ${body}`),
       document.fonts.load(`italic 500 34px ${body}`),
@@ -439,7 +437,7 @@ async function ensureFonts(): Promise<{ display: string; body: string }> {
   } catch {
     // draw with fallback faces
   }
-  return { display, body }
+  return { display, body, date }
 }
 
 function fitFontSize(
@@ -491,7 +489,7 @@ function drawForeground(
   w: number,
   h: number,
   show: Show,
-  fonts: { display: string; body: string },
+  fonts: { display: string; body: string; date: string },
   logo: LogoAssets | null,
 ) {
   const centerX = w / 2
@@ -534,7 +532,7 @@ function drawForeground(
   ctx.textAlign = 'center'
   ctx.textBaseline = 'top'
 
-  const dateSize = fitFontSize(ctx, dateLine, isStory ? 94 : 90, maxWidth, (s) => `600 ${s}px ${fonts.display}`)
+  const dateSize = fitFontSize(ctx, dateLine, isStory ? 94 : 90, maxWidth, (s) => `400 ${s}px ${fonts.date}`)
   const venueSize = fitFontSize(ctx, show.venue, 66, maxWidth, (s) => `600 ${s}px ${fonts.display}`)
 
   ctx.font = `italic 500 34px ${fonts.body}`
@@ -556,7 +554,7 @@ function drawForeground(
       height: dateSize,
       gap: 22,
       draw: (y) => {
-        ctx.font = `600 ${dateSize}px ${fonts.display}`
+        ctx.font = `400 ${dateSize}px ${fonts.date}`
         ctx.fillStyle = CREAM
         ctx.shadowColor = 'rgba(0, 0, 0, 0.5)'
         ctx.shadowBlur = 14
