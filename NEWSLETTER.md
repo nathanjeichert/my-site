@@ -1,6 +1,8 @@
 # Show-Alert Newsletter
 
-How the automatic gig-alert emails work, and the one-time setup that remains.
+How the automatic gig-alert emails work. **Status: live and verified** (set up
+June 16, 2026 — domain verified, a test broadcast landed in the inbox). Day to day
+it needs nothing from you; the reference below is for if something ever breaks.
 
 ## Architecture (all free, no database)
 
@@ -24,31 +26,40 @@ redeploys the site from the same push.
 
 Free-tier limits (plenty for now): 3,000 emails/month, 100/day, 1,000 contacts.
 
-## One-time setup still needed
+## How it was set up (already done — for reference)
 
-1. **Create the Resend account** (~2 min): <https://resend.com/signup> → "Continue
-   with Google" as nathanjeichert@gmail.com.
-2. **Verify the sending domain**: Resend dashboard → Domains → Add Domain →
-   `northerndisconnection.com` (region: us-east-1 is fine). Resend will show 3–4 DNS
-   records (an MX + TXT on `send.northerndisconnection.com`, a TXT on
-   `resend._domainkey`, and optionally a DMARC TXT). Add them at **Namecheap →
-   Domain List → northerndisconnection.com → Advanced DNS**. They do not conflict
-   with the existing email forwarding (which lives on the apex MX records — leave
-   those alone). Click "Verify" in Resend once added.
-3. **Create the audience**: Resend dashboard → Audiences → the default "General"
-   audience works; copy its Audience ID.
-4. **Create an API key**: Resend dashboard → API Keys → Create (Full access).
-5. **Wire the secrets** (or ask Claude to do this part once 1–4 are done):
+1. **Resend account**: signed in with Google as nathanjeichert@gmail.com.
+2. **Sending domain** `northerndisconnection.com` (region us-east-1) verified with
+   three DNS records at **Namecheap → Advanced DNS**:
+   - `resend._domainkey` **TXT** (DKIM) — in Host Records
+   - `send` **TXT** (`v=spf1 include:amazonses.com ~all`) — in Host Records
+   - `send` **MX** (`feedback-smtp.us-east-1.amazonses.com`, priority 10) — added
+     via **Mail Settings → Custom MX**
+
+   **Trade-off we accepted:** Namecheap only allows MX records in "Custom MX" mode,
+   which disables its Email Forwarding. We had no inbound `@northerndisconnection.com`
+   address in use, so forwarding was turned off. Replies still reach you because every
+   email sets `Reply-To: nathanjeichert@gmail.com` (see `REPLY_TO` in the script). If
+   you ever want inbound `@northerndisconnection.com` mail back, the clean path is to
+   move DNS to Cloudflare (free Email Routing + free DNS, and it allows the `send` MX
+   alongside forwarding).
+
+   **Verification gotcha (if you ever re-verify a domain):** don't spam the "Verify"
+   button. Each click restarts SES's MAIL-FROM detection; clicking every few minutes
+   can reset it before it finishes. Add the records, click Verify once, then wait
+   ~10–15 min untouched.
+3. **Audience**: Resend's default "General" audience.
+4. **Secrets wired** — `RESEND_API_KEY` + `RESEND_AUDIENCE_ID` in both Vercel (all
+   environments, powers the signup form) and GitHub Actions secrets (powers the
+   alert emails). To rotate the key later:
 
    ```sh
-   # Vercel (powers the signup form)
-   npx vercel env add RESEND_API_KEY production    # paste key; repeat for preview/development
-   npx vercel env add RESEND_AUDIENCE_ID production
+   # Vercel (powers the signup form) — repeat per environment
+   npx vercel env rm RESEND_API_KEY production; npx vercel env add RESEND_API_KEY production
    npx vercel redeploy --prod   # or just push any commit
 
    # GitHub (powers the alert emails)
    gh secret set RESEND_API_KEY --repo nathanjeichert/my-site
-   gh secret set RESEND_AUDIENCE_ID --repo nathanjeichert/my-site
    ```
 
 ## Testing / operations
@@ -61,7 +72,17 @@ Free-tier limits (plenty for now): 3,000 emails/month, 100/day, 1,000 contacts.
 
 - **Dry-run in GitHub**: Actions → "Announce new shows" → Run workflow (dry-run
   defaults to on; it previews what the latest shows.json change would have sent).
-- The Action is a graceful no-op (green, with a log message) until the secrets are
-  set, so pushes are never blocked by the newsletter.
+- **Send a real test broadcast** (goes to everyone in the audience — currently just
+  you): make a `before-real.json` copy of `content/shows.json` with one upcoming show
+  removed, then:
+
+  ```sh
+  RESEND_API_KEY=… RESEND_AUDIENCE_ID=… BEFORE_FILE=before-real.json AFTER_FILE=content/shows.json node scripts/announce-shows.mjs
+  ```
+
+- The Action is a graceful no-op (green, with a log message) if the secrets are ever
+  missing, so pushes are never blocked by the newsletter.
 - Sender address: `shows@northerndisconnection.com`, replies go to
   nathanjeichert@gmail.com.
+- Resend dashboard: <https://resend.com> → Broadcasts / Audiences / Logs to see
+  what was sent, manage contacts, and view delivery stats.
