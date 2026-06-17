@@ -2,25 +2,13 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { MapPin, Clock, Ticket, ChevronRight, CalendarPlus, Share2 } from 'lucide-react'
+import { MapPin, Clock, Ticket, ChevronRight, Share2 } from 'lucide-react'
 import type { Show } from '@/types/content'
 import { getDateParts, getWeekday } from '@/lib/dates'
-import { buildShowIcs, showIcsFilename } from '@/lib/calendar'
 import SubscribeForm from '@/app/components/subscribe-form'
 import Ornament from '@/app/components/ornament'
 import ShowFlyerModal from '@/app/components/show-flyer-modal'
-
-function downloadShowIcs(show: Show) {
-  const ics = buildShowIcs(show)
-  if (!ics) return
-
-  const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }))
-  const link = document.createElement('a')
-  link.href = url
-  link.download = showIcsFilename(show)
-  link.click()
-  URL.revokeObjectURL(url)
-}
+import AddToCalendar from '@/app/components/add-to-calendar'
 
 interface ShowsPageProps {
   title: string
@@ -116,16 +104,7 @@ export default function ShowsClient({ title, shows, nextShowIndex }: ShowsPagePr
                       <p className="mt-3 text-sm italic leading-relaxed text-sand/80">{show.description}</p>
                     )}
                     <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1.5">
-                      {parts && (
-                        <button
-                          type="button"
-                          onClick={() => downloadShowIcs(show)}
-                          className="inline-flex items-center gap-1.5 text-[0.7rem] font-bold uppercase tracking-[0.2em] text-rust/80 transition-colors hover:text-gold"
-                        >
-                          <CalendarPlus size={14} className="shrink-0" />
-                          Add to Calendar
-                        </button>
-                      )}
+                      {parts && <AddToCalendar show={show} />}
                       <button
                         type="button"
                         onClick={() => setFlyerShow(show)}

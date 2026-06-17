@@ -114,21 +114,21 @@ export default function ShowFlyerModal({ show, onClose }: ShowFlyerModalProps) {
         className="relative flex max-h-full w-full max-w-lg flex-col border-2 border-rust/50 bg-pine p-5 shadow-[8px_8px_0_rgba(215,180,138,0.25)] sm:p-6"
         onClick={(event) => event.stopPropagation()}
       >
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close"
-          className="absolute right-3 top-3 z-10 p-1 text-rust transition-colors hover:text-cream"
-        >
-          <X size={20} />
-        </button>
+        <div className="mb-1 flex shrink-0 justify-end">
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="p-1 text-rust transition-colors hover:text-cream"
+          >
+            <X size={20} />
+          </button>
+        </div>
 
-        <p className="eyebrow mb-4 text-center">Show Flyer</p>
-
-        <div className="min-h-0 flex-1 overflow-hidden">
+        <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden">
           <canvas
             ref={canvasRef}
-            className="mx-auto block h-full max-h-[58vh] w-auto max-w-full border border-rust/30"
+            className="block max-h-[58vh] max-w-full border border-rust/30"
             aria-label={`Flyer for Northern Disconnection at ${show.venue}, ${show.date}`}
           />
         </div>

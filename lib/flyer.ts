@@ -1,5 +1,5 @@
 import type { Show } from '@/types/content'
-import { getDateParts, getWeekday, parseShowDate } from './dates'
+import { getWeekday, parseShowDate } from './dates'
 
 /*
   Generative show flyer, drawn on a canvas in the site's design system.
@@ -331,32 +331,70 @@ function drawBackground(ctx: Ctx, w: number, h: number, rand: Rand) {
 
 /* ---------- foreground: logo + text block ---------- */
 
-let logoPromise: Promise<HTMLImageElement> | null = null
+const CREAM_RGB: [number, number, number] = [247, 242, 229]
 
-function loadLogo(): Promise<HTMLImageElement> {
-  logoPromise ??= new Promise((resolve, reject) => {
+// The logo is decoupled into two black-ink artworks: the guitar/tree mark
+// and the stylized wordmark. They live on transparency as high-resolution
+// line art so they scale crisply onto the flyer.
+let markPromise: Promise<HTMLImageElement> | null = null
+let wordmarkPromise: Promise<HTMLImageElement> | null = null
+let tintedMark: HTMLCanvasElement | null = null
+let tintedWordmark: HTMLCanvasElement | null = null
+
+function loadImage(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
     const img = new Image()
     img.onload = () => resolve(img)
     img.onerror = reject
-    img.src = '/logo-hero.png'
+    img.src = src
   })
-  return logoPromise
 }
 
-// The hero logo is black ink on transparency; recolor it cream so it
-// reads on the dark flyer.
-function creamLogo(img: HTMLImageElement, width: number): HTMLCanvasElement {
-  const height = Math.round(width * (img.naturalHeight / img.naturalWidth))
+// Recolor black-ink line art to `color`, mapping each pixel's lightness to
+// transparency. This keeps the inked lines (dark → opaque colour) while the
+// white-filled interior of the mark drops out (light → transparent), so the
+// guitar/tree reads as a clean line drawing instead of a flat silhouette.
+function tintInk(img: HTMLImageElement, color: [number, number, number]): HTMLCanvasElement {
+  const w = img.naturalWidth
+  const h = img.naturalHeight
   const off = document.createElement('canvas')
-  off.width = width
-  off.height = height
+  off.width = w
+  off.height = h
   const ctx = off.getContext('2d')
   if (!ctx) return off
-  ctx.drawImage(img, 0, 0, width, height)
-  ctx.globalCompositeOperation = 'source-in'
-  ctx.fillStyle = CREAM
-  ctx.fillRect(0, 0, width, height)
+  ctx.drawImage(img, 0, 0)
+  const image = ctx.getImageData(0, 0, w, h)
+  const d = image.data
+  const [r, g, b] = color
+  for (let i = 0; i < d.length; i += 4) {
+    const a = d[i + 3]
+    if (a === 0) continue
+    const lum = (d[i] * 0.299 + d[i + 1] * 0.587 + d[i + 2] * 0.114) / 255
+    d[i] = r
+    d[i + 1] = g
+    d[i + 2] = b
+    d[i + 3] = Math.round(a * (1 - lum))
+  }
+  ctx.putImageData(image, 0, 0)
   return off
+}
+
+interface LogoAssets {
+  mark: HTMLCanvasElement
+  wordmark: HTMLCanvasElement
+}
+
+async function loadLogoAssets(): Promise<LogoAssets | null> {
+  markPromise ??= loadImage('/logo-mark.png')
+  wordmarkPromise ??= loadImage('/logo-wordmark.png')
+  try {
+    const [mark, wordmark] = await Promise.all([markPromise, wordmarkPromise])
+    tintedMark ??= tintInk(mark, CREAM_RGB)
+    tintedWordmark ??= tintInk(wordmark, CREAM_RGB)
+    return { mark: tintedMark, wordmark: tintedWordmark }
+  } catch {
+    return null
+  }
 }
 
 async function ensureFonts(): Promise<{ display: string; body: string }> {
@@ -414,39 +452,75 @@ function wrapText(ctx: Ctx, text: string, maxWidth: number, maxLines: number): s
   return lines
 }
 
-function drawTextBlock(
+interface Block {
+  height: number
+  gap: number
+  draw: (y: number) => void
+}
+
+function drawForeground(
   ctx: Ctx,
   w: number,
   h: number,
   show: Show,
   fonts: { display: string; body: string },
+  logo: LogoAssets | null,
 ) {
-  const maxWidth = w - 240
   const centerX = w / 2
+  const isStory = h > 1500
+  const maxWidth = w - 200
+
+  const blocks: Block[] = []
+
+  // --- identity lockup: guitar/tree mark beside the stylized wordmark ---
+  if (logo) {
+    const markH = isStory ? 392 : 344
+    const markW = markH * (logo.mark.width / logo.mark.height)
+    const wordW = isStory ? 724 : 688
+    const wordH = wordW * (logo.wordmark.height / logo.wordmark.width)
+    const innerGap = 34
+    const lockupW = markW + innerGap + wordW
+    const lockupH = Math.max(markH, wordH)
+    blocks.push({
+      height: lockupH,
+      gap: isStory ? 80 : 66,
+      draw: (y) => {
+        const x0 = centerX - lockupW / 2
+        ctx.save()
+        ctx.shadowColor = 'rgba(8, 18, 12, 0.55)'
+        ctx.shadowBlur = 18
+        ctx.shadowOffsetY = 6
+        ctx.drawImage(logo.mark, x0, y + (lockupH - markH) / 2, markW, markH)
+        ctx.drawImage(logo.wordmark, x0 + markW + innerGap, y + (lockupH - wordH) / 2, wordW, wordH)
+        ctx.restore()
+      },
+    })
+  }
+
+  // --- show details ---
   const weekday = getWeekday(show)
-  const parts = getDateParts(show)
   const dateSansYear = show.date.replace(/,?\s*\d{4}\s*$/, '')
   const dateLine = `${weekday ? `${weekday}, ` : ''}${dateSansYear}`.toUpperCase()
-  const infoLine = [show.location, show.time, parts?.year].filter(Boolean).join('  ·  ')
+  const infoLine = [show.location, show.time].filter(Boolean).join('  ·  ')
 
   ctx.textAlign = 'center'
   ctx.textBaseline = 'top'
 
-  const dateSize = fitFontSize(ctx, dateLine, 86, maxWidth, (s) => `600 ${s}px ${fonts.display}`)
-  const venueSize = fitFontSize(ctx, show.venue, 62, maxWidth, (s) => `600 ${s}px ${fonts.display}`)
+  const dateSize = fitFontSize(ctx, dateLine, isStory ? 94 : 90, maxWidth, (s) => `600 ${s}px ${fonts.display}`)
+  const venueSize = fitFontSize(ctx, show.venue, 66, maxWidth, (s) => `600 ${s}px ${fonts.display}`)
 
-  ctx.font = `italic 500 33px ${fonts.body}`
+  ctx.font = `italic 500 34px ${fonts.body}`
   const descLines = show.description ? wrapText(ctx, show.description, maxWidth, 3) : []
 
-  const items: Array<{ height: number; gap: number; draw: (y: number) => void }> = [
+  blocks.push(
     {
-      height: 30,
+      height: 32,
       gap: 34,
       draw: (y) => {
-        ctx.font = `700 30px ${fonts.body}`
-        setLetterSpacing(ctx, '10px')
+        ctx.font = `700 32px ${fonts.body}`
+        setLetterSpacing(ctx, '16px')
         ctx.fillStyle = RUST
-        ctx.fillText('LIVE IN CONCERT', centerX, y)
+        ctx.fillText('LIVE', centerX, y)
         setLetterSpacing(ctx, '0px')
       },
     },
@@ -475,26 +549,26 @@ function drawTextBlock(
       },
     },
     {
-      height: 36,
+      height: 38,
       gap: descLines.length > 0 ? 26 : 34,
       draw: (y) => {
-        ctx.font = `500 36px ${fonts.body}`
+        ctx.font = `500 38px ${fonts.body}`
         ctx.fillStyle = SAND
         ctx.fillText(infoLine, centerX, y)
       },
     },
     ...descLines.map((line, index) => ({
-      height: 33,
+      height: 34,
       gap: index === descLines.length - 1 ? 34 : 12,
       draw: (y: number) => {
-        ctx.font = `italic 500 33px ${fonts.body}`
+        ctx.font = `italic 500 34px ${fonts.body}`
         ctx.fillStyle = hexToRgba(SAND, 0.85)
         ctx.fillText(line, centerX, y)
       },
     })),
     {
       height: 30,
-      gap: 24,
+      gap: 26,
       draw: (y) => {
         // ── ◆ ── ornament; the diamond is drawn (not a glyph) so it
         // can't fall back to tofu on devices missing fleuron chars
@@ -520,19 +594,22 @@ function drawTextBlock(
       gap: 0,
       draw: (y) => {
         ctx.font = `700 28px ${fonts.body}`
-        setLetterSpacing(ctx, '4px')
+        setLetterSpacing(ctx, '2px')
         ctx.fillStyle = hexToRgba(RUST, 0.95)
-        ctx.fillText('@NORTHERNDISCONNECTION', centerX, y)
+        ctx.fillText('northerndisconnection.com', centerX, y)
         setLetterSpacing(ctx, '0px')
       },
     },
-  ]
+  )
 
-  const total = items.reduce((sum, item) => sum + item.height + item.gap, 0)
-  let y = h - h * 0.065 - total
-  for (const item of items) {
-    item.draw(y)
-    y += item.height + item.gap
+  // Center the whole composition vertically (lifted slightly so the dark
+  // base scrim still sits under the show details), filling the canvas evenly
+  // on both the 4:5 and the taller 9:16 formats.
+  const total = blocks.reduce((sum, b) => sum + b.height + b.gap, 0)
+  let y = Math.max(h * 0.06, (h - total) * 0.46)
+  for (const b of blocks) {
+    b.draw(y)
+    y += b.height + b.gap
   }
 }
 
@@ -544,7 +621,7 @@ export async function drawFlyer(
 ): Promise<void> {
   const { width, height } = FLYER_DIMENSIONS[format]
   const fonts = await ensureFonts()
-  const logo = await loadLogo().catch(() => null)
+  const logo = await loadLogoAssets()
 
   canvas.width = width
   canvas.height = height
@@ -552,19 +629,7 @@ export async function drawFlyer(
   if (!ctx) return
 
   drawBackground(ctx, width, height, mulberry32(seed))
-
-  if (logo) {
-    const logoWidth = Math.round(width * 0.52)
-    const tinted = creamLogo(logo, logoWidth)
-    ctx.save()
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.45)'
-    ctx.shadowBlur = 28
-    ctx.shadowOffsetY = 6
-    ctx.drawImage(tinted, (width - logoWidth) / 2, 96)
-    ctx.restore()
-  }
-
-  drawTextBlock(ctx, width, height, show, fonts)
+  drawForeground(ctx, width, height, show, fonts, logo)
 }
 
 export function flyerFilename(show: Show, format: FlyerFormat): string {
