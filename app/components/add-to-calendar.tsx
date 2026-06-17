@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { CalendarPlus } from 'lucide-react'
 import type { Show } from '@/types/content'
 import {
@@ -26,26 +27,55 @@ function downloadIcs(show: Show) {
   visitors won't know what to do with, this opens a small picker so the event
   lands in whatever calendar they actually use. Apple Calendar (and any desktop
   calendar app) gets the .ics; Google and Outlook get a prefilled add-event link.
+
+  The menu is rendered through a portal with fixed positioning so it escapes the
+  show card's CSS mask (the ticket-stub perforation), which would otherwise clip
+  the dropdown at the card's edge.
 */
 export default function AddToCalendar({ show }: { show: Show }) {
   const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
+  const [coords, setCoords] = useState({ top: 0, left: 0 })
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
+
+  const place = useCallback(() => {
+    const trigger = triggerRef.current
+    if (!trigger) return
+    const rect = trigger.getBoundingClientRect()
+    const menuHeight = menuRef.current?.offsetHeight ?? 176
+    const spaceBelow = window.innerHeight - rect.bottom
+    // flip above the button when there isn't room below (e.g. the last card)
+    const top =
+      spaceBelow < menuHeight + 12 ? Math.max(8, rect.top - menuHeight - 8) : rect.bottom + 8
+    setCoords({ top, left: rect.left })
+  }, [])
+
+  // position before the browser paints, so the menu never flashes at 0,0
+  useLayoutEffect(() => {
+    if (open) place()
+  }, [open, place])
 
   useEffect(() => {
     if (!open) return
     const onPointerDown = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) setOpen(false)
+      const target = event.target as Node
+      if (triggerRef.current?.contains(target) || menuRef.current?.contains(target)) return
+      setOpen(false)
     }
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setOpen(false)
     }
     document.addEventListener('mousedown', onPointerDown)
     document.addEventListener('keydown', onKeyDown)
+    window.addEventListener('scroll', place, true)
+    window.addEventListener('resize', place)
     return () => {
       document.removeEventListener('mousedown', onPointerDown)
       document.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('scroll', place, true)
+      window.removeEventListener('resize', place)
     }
-  }, [open])
+  }, [open, place])
 
   const google = googleCalendarUrl(show)
   const outlook = outlookCalendarUrl(show)
@@ -62,8 +92,9 @@ export default function AddToCalendar({ show }: { show: Show }) {
     'block w-full px-4 py-2.5 text-left text-[0.7rem] font-bold uppercase tracking-[0.15em] text-rust transition-colors hover:bg-moss/60 hover:text-cream'
 
   return (
-    <div ref={ref} className="relative">
+    <>
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen((value) => !value)}
         aria-haspopup="menu"
@@ -74,41 +105,46 @@ export default function AddToCalendar({ show }: { show: Show }) {
         Add to Calendar
       </button>
 
-      {open && (
-        <div
-          role="menu"
-          className="absolute left-0 top-full z-30 mt-2 min-w-[12rem] border-2 border-rust/50 bg-pine shadow-[5px_5px_0_rgba(215,180,138,0.25)]"
-        >
-          {options.map((option) =>
-            option.href ? (
-              <a
-                key={option.label}
-                role="menuitem"
-                href={option.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
-                className={itemClass}
-              >
-                {option.label}
-              </a>
-            ) : (
-              <button
-                key={option.label}
-                type="button"
-                role="menuitem"
-                onClick={() => {
-                  option.onSelect?.()
-                  setOpen(false)
-                }}
-                className={itemClass}
-              >
-                {option.label}
-              </button>
-            ),
-          )}
-        </div>
-      )}
-    </div>
+      {open &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <div
+            ref={menuRef}
+            role="menu"
+            style={{ position: 'fixed', top: coords.top, left: coords.left, zIndex: 70 }}
+            className="min-w-[12rem] border-2 border-rust/50 bg-pine shadow-[5px_5px_0_rgba(215,180,138,0.25)]"
+          >
+            {options.map((option) =>
+              option.href ? (
+                <a
+                  key={option.label}
+                  role="menuitem"
+                  href={option.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setOpen(false)}
+                  className={itemClass}
+                >
+                  {option.label}
+                </a>
+              ) : (
+                <button
+                  key={option.label}
+                  type="button"
+                  role="menuitem"
+                  onClick={() => {
+                    option.onSelect?.()
+                    setOpen(false)
+                  }}
+                  className={itemClass}
+                >
+                  {option.label}
+                </button>
+              ),
+            )}
+          </div>,
+          document.body,
+        )}
+    </>
   )
 }
